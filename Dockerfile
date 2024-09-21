@@ -8,6 +8,6 @@ COPY package*.json /usr/src/bot
 
 RUN npm install
 
-COPY . /usr/src/bot
+COPY /dist /usr/src/bot/dist
 
 CMD [ "npm", "start" ]
