@@ -4,7 +4,7 @@ import { Schedule } from "./schedule";
 import { translation } from "../language";
 import { toMilliseconds, utils } from "../utils";
 import { PermissionError, PermissionErrorType } from "../utils/discord";
-import { logError, logInfo } from "../utils/logger";
+import { logError, logInfo, logInfoTemplate } from "../utils/logger";
 import { yellow } from "colors";
 import { Op } from "sequelize";
 
@@ -30,6 +30,9 @@ export class Crate extends Schedule {
         },
       },
     });
+
+    logInfoTemplate("Channels found: {0}", channels.length.toString());
+
     channels.forEach((channel) => {
       const discordChannel = client.channels.cache.get(channel.channelId);
       const locale = utils.discord.getPreferredLocale(discordChannel);
@@ -48,6 +51,12 @@ export class Crate extends Schedule {
         logError(PermissionErrorType[result.type]);
         CrateChannel.destroy({ where: { channelId: channel.channelId } });
         logInfo(`Channel ${yellow(channel.channelId)} removed from database.`);
+      } else {
+        logInfo(
+          `Message sent to channel ${yellow(
+            channel.channelId
+          )} with role ${yellow(channel.roleId?.toString() || "none")}`
+        );
       }
     });
   };

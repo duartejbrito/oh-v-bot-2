@@ -18,8 +18,10 @@ import {
 } from "../utils";
 import { Crate } from "../scheduler/crate";
 import { translation } from "../language";
+import { logInfo } from "../utils/logger";
 
 async function setupCrateChannel(interaction: CommandInteraction) {
+  logInfo("Crate command setup executed");
   await interaction.deferReply({ ephemeral: true });
 
   const options = interaction.options as CommandInteractionOptionResolver;
@@ -130,6 +132,7 @@ export const data = new SlashCommandBuilder()
   );
 
 export async function execute(interaction: CommandInteraction) {
+  logInfo("Crate command executed");
   const options = interaction.options as CommandInteractionOptionResolver;
 
   if (options.getSubcommand() === "setup") {
@@ -138,9 +141,11 @@ export async function execute(interaction: CommandInteraction) {
 }
 
 export async function executeSelectMenu(interaction: AnySelectMenuInteraction) {
+  logInfo("Crate command select menu executed");
   const selectMenuCommandName = getSelectMenuCommandName(interaction.customId);
 
   if (selectMenuCommandName === "mute-hours") {
+    logInfo("Crate command mute-hours executed");
     const mutes = interaction.values.map((value) => value);
     await CrateChannel.update(
       { mute: mutes },

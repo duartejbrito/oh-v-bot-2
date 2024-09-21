@@ -18,8 +18,10 @@ import {
 import { CargoChannel } from "../db/models/CargoChannel";
 import { Cargo } from "../scheduler/cargo";
 import { translation } from "../language";
+import { logInfo } from "../utils/logger";
 
 async function setupCargoChannel(interaction: CommandInteraction) {
+  logInfo("Cargo command setup executed");
   await interaction.deferReply({ ephemeral: true });
 
   const options = interaction.options as CommandInteractionOptionResolver;
@@ -130,6 +132,7 @@ export const data = new SlashCommandBuilder()
   );
 
 export async function execute(interaction: CommandInteraction) {
+  logInfo("Cargo command executed");
   const options = interaction.options as CommandInteractionOptionResolver;
 
   if (options.getSubcommand() === "setup") {
@@ -138,9 +141,11 @@ export async function execute(interaction: CommandInteraction) {
 }
 
 export async function executeSelectMenu(interaction: AnySelectMenuInteraction) {
+  logInfo("Cargo command select menu executed");
   const selectMenuCommandName = getSelectMenuCommandName(interaction.customId);
 
   if (selectMenuCommandName === "mute-hours") {
+    logInfo("Cargo command mute-hours executed");
     const mutes = interaction.values.map((value) => value);
     await CargoChannel.update(
       { mute: mutes },

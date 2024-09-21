@@ -7,6 +7,7 @@ import {
 import { config } from "../config";
 import { commandsData, ownerCommandsData } from ".";
 import { deployCommands, deployGuildCommands } from "../deploy-commands";
+import { logInfo } from "../utils/logger";
 
 export const name = "deploy";
 
@@ -17,6 +18,7 @@ export const data = new SlashCommandBuilder()
   .setDefaultMemberPermissions(PermissionFlagsBits.Administrator);
 
 export async function execute(interaction: CommandInteraction) {
+  logInfo("Deploy command executed");
   if (interaction.user.id !== config.OWNER_ID) {
     return await interaction.reply({
       content: "You do not have permission to use this command.",

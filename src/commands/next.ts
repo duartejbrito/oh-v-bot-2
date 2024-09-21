@@ -11,6 +11,7 @@ import { Crate } from "../scheduler/crate";
 import { Job } from "node-schedule";
 import { translation } from "../language";
 import { Cargo } from "../scheduler/cargo";
+import { logInfo } from "../utils/logger";
 
 export const name = "next";
 
@@ -22,6 +23,7 @@ export const data = new SlashCommandBuilder()
   .setContexts([InteractionContextType.Guild]);
 
 export async function execute(interaction: CommandInteraction) {
+  logInfo("Next command executed");
   await interaction.deferReply({ ephemeral: true });
 
   const locale = utils.discord.getPreferredLocale(interaction.channel!);
