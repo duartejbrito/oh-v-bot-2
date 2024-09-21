@@ -2,8 +2,7 @@ version: "3.9"
 
 services:
   bot:
-    build: .
-    # image: syter/oh-v-bot-2:latest
+    image: syter/oh-v-bot-2:latest
     restart: always
     depends_on:
       - db
