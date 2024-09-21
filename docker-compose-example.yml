@@ -1,0 +1,34 @@
+version: "3.9"
+
+services:
+  bot:
+    build: .
+    restart: always
+    depends_on:
+      - db
+    environment:
+      - DISCORD_TOKEN=<DISCORD_TOKEN>
+      - DISCORD_CLIENT_ID=<DISCORD_CLIENT_ID>
+      - OWNER_GUILD_ID=<OWNER_GUILD_ID>
+      - OWNER_ID=<OWNER_ID>
+      - OWNER_CHANNEL_ID=<OWNER_CHANNEL_ID>
+      - PG_CONNECTION_STRING=<PG_CONNECTION_STRING>
+  db:
+    image: postgres
+    restart: always
+    shm_size: 128mb
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: pgpassword
+      POSTGRES_USER: pguser
+      POSTGRES_DB: pgdb
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 56841:8080
+volumes:
+  pgdata:
