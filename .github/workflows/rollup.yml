@@ -40,4 +40,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: app-build
+          path: dist
       - run: ls
+      - run: ls dist
