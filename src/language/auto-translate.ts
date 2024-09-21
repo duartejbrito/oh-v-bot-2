@@ -1,7 +1,7 @@
 import translate from "@iamtraction/google-translate";
-import { languages, phrases } from ".";
 import * as fs from "fs";
 import { logInfo } from "../utils/logger";
+import { languages, phrases } from ".";
 
 function autovivify() {
   return new Proxy(

@@ -5,9 +5,9 @@ import {
   SlashCommandBuilder,
 } from "discord.js";
 import { config } from "../config";
-import { commandsData, ownerCommandsData } from ".";
 import { deployCommands, deployGuildCommands } from "../deploy-commands";
 import { logInfo } from "../utils/logger";
+import { commandsData, ownerCommandsData } from ".";
 
 export const name = "deploy";
 

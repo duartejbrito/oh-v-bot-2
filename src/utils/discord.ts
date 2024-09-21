@@ -2,12 +2,12 @@ import {
   Channel,
   ColorResolvable,
   Colors,
-  EmbedBuilder,
-  GuildChannel,
-  SendableChannels,
-  PermissionFlagsBits,
   CommandInteraction,
   CommandInteractionOptionResolver,
+  EmbedBuilder,
+  GuildChannel,
+  PermissionFlagsBits,
+  SendableChannels,
 } from "discord.js";
 import { TranslationLocale } from "../language";
 

@@ -1,6 +1,6 @@
 import { CommandInteraction, SlashCommandBuilder } from "discord.js";
-import { logInfo } from "../utils/logger";
 import { utils } from "../utils";
+import { logInfo } from "../utils/logger";
 
 export const name = "info";
 

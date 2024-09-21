@@ -1,6 +1,6 @@
-import { rulesOptions } from "../scheduler";
 import * as discord from "./discord";
 import * as logger from "./logger";
+import { rulesOptions } from "../scheduler";
 
 declare global {
   interface String {

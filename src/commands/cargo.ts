@@ -10,14 +10,14 @@ import {
   StringSelectMenuBuilder,
   StringSelectMenuOptionBuilder,
 } from "discord.js";
+import { CargoChannel } from "../db/models/CargoChannel";
+import { translation } from "../language";
+import { Cargo } from "../scheduler/cargo";
 import {
   getSelectMenuCommandName,
   getSelectMenuOptionsByRule,
   utils,
 } from "../utils";
-import { CargoChannel } from "../db/models/CargoChannel";
-import { Cargo } from "../scheduler/cargo";
-import { translation } from "../language";
 import { logInfo } from "../utils/logger";
 
 async function setupCargoChannel(interaction: CommandInteraction) {

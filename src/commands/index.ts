@@ -1,8 +1,8 @@
-import * as ping from "./ping";
-import * as next from "./next";
-import * as crate from "./crate";
 import * as cargo from "./cargo";
+import * as crate from "./crate";
 import * as deploy from "./deploy";
+import * as next from "./next";
+import * as ping from "./ping";
 
 export const allCommands = {
   ping,

@@ -1,6 +1,6 @@
 import type { Sequelize } from "sequelize";
-import { CrateChannel } from "./CrateChannel";
 import { CargoChannel } from "./CargoChannel";
+import { CrateChannel } from "./CrateChannel";
 
 export { CrateChannel, CargoChannel };
 

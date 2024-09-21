@@ -1,8 +1,8 @@
+import { green } from "colors/safe";
 import { REST, Routes } from "discord.js";
+import { commandsData, ownerCommandsData } from "./commands";
 import { config } from "./config";
 import { logError, logInfo } from "./utils/logger";
-import { green } from "colors/safe";
-import { commandsData, ownerCommandsData } from "./commands";
 
 const rest = new REST({ version: "10" }).setToken(config.DISCORD_TOKEN);
 

@@ -1,4 +1,4 @@
-import { Sequelize, Options } from "sequelize";
+import { Options, Sequelize } from "sequelize";
 import { config } from "../config";
 
 const db: Sequelize = new Sequelize(config.PG_CONNECTION_STRING!, {

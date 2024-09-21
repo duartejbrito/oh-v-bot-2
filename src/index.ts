@@ -1,12 +1,12 @@
-import { Client, Events, GatewayIntentBits } from "discord.js";
-import { config } from "./config";
-import { allCommands, selectMenusCommands } from "./commands";
-import { scheduleJobs } from "./scheduler";
-import db from "./db";
-import { logInfo, logError } from "./utils/logger";
-import { initModels } from "./db/models";
 import { green } from "colors/safe";
+import { Client, Events, GatewayIntentBits } from "discord.js";
+import { allCommands, selectMenusCommands } from "./commands";
+import { config } from "./config";
+import db from "./db";
+import { initModels } from "./db/models";
 import { deployCommands, deployGuildCommands } from "./deploy-commands";
+import { scheduleJobs } from "./scheduler";
+import { logError, logInfo } from "./utils/logger";
 
 export const client = new Client({
   intents: [GatewayIntentBits.Guilds],

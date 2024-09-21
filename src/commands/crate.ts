@@ -1,23 +1,23 @@
 import {
+  ActionRowBuilder,
+  AnySelectMenuInteraction,
   CommandInteraction,
   CommandInteractionOptionResolver,
   InteractionContextType,
-  SlashCommandBuilder,
   PermissionFlagsBits,
+  SendableChannels,
+  SlashCommandBuilder,
   StringSelectMenuBuilder,
   StringSelectMenuOptionBuilder,
-  ActionRowBuilder,
-  AnySelectMenuInteraction,
-  SendableChannels,
 } from "discord.js";
 import { CrateChannel } from "../db/models/CrateChannel";
+import { translation } from "../language";
+import { Crate } from "../scheduler/crate";
 import {
   getSelectMenuCommandName,
   getSelectMenuOptionsByRule,
   utils,
 } from "../utils";
-import { Crate } from "../scheduler/crate";
-import { translation } from "../language";
 import { logInfo } from "../utils/logger";
 
 async function setupCrateChannel(interaction: CommandInteraction) {
