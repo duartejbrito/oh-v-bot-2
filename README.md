@@ -29,11 +29,55 @@
 </p>
 
 <p align="center">
+  <a href="#-project">Project</a> |
+  <a href="#-commands-for-managing-notification-channels">Commands</a> |
   <a href="#-how-to-contribute">How to contribute</a> |
   <a href="#-license">License</a>
 </p>
 
-<p align="center">Work in progress</p>
+## 💻 Project
+
+The V - Once Human Discord Bot is a versatile tool designed to manage and provide alerts for crate and cargo events in the Once Human game. It features commands for setting up notification channels, roles, and auto-delete options, ensuring players stay informed about important in-game events.
+
+## 📢 Commands for Managing Notification Channels
+
+The available commands for managing notification channels in the V - Once Human Discord Bot are:
+
+### Crate Command ([src/commands/crate.ts](src/commands/crate.ts))
+
+**Setup**: `/crate setup`
+
+**Options**:
+
+- `channel`: The text/announcement channel for notifications (required).
+- `role`: The role to mention in the alert (optional).
+- `auto-delete`: Toggle auto-delete for alerts before the next post (optional).
+- `mute`: Toggle mute for notifications (optional).
+
+### Cargo Command ([src/commands/cargo.ts](src/commands/cargo.ts))
+
+**Setup**: `/cargo setup`
+
+**Options**:
+
+- `channel`: The text/announcement channel for notifications (required).
+- `role`: The role to mention in the alert (optional).
+- `auto-delete`: Toggle auto-delete for alerts before the next post (optional).
+- `mute`: Toggle mute for notifications (optional).
+
+### Info Command ([src/commands/info.ts](src/commands/info.ts))
+
+**Usage**: `/info`
+
+Provides information about the current settings for crate and cargo notifications.
+
+### Next Command ([src/commands/next.ts](src/commands/next.ts))
+
+**Usage**: `/next`
+
+Displays the next scheduled crate or cargo event.
+
+These commands allow you to set up notification channels, roles, and auto-delete options for crate and cargo events in the Once Human game.
 
 ## 🤔 How to contribute
 
