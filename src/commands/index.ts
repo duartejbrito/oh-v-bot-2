@@ -4,11 +4,13 @@ import * as deploy from "./deploy";
 import * as info from "./info";
 import * as next from "./next";
 import * as ping from "./ping";
+import * as remove from "./remove";
 
 export const allCommands = {
   ping,
   info,
   next,
+  remove,
   crate,
   cargo,
   deploy,
@@ -18,6 +20,7 @@ export const commands = {
   ping,
   info,
   next,
+  remove,
   crate,
   cargo,
 };

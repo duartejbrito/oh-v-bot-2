@@ -77,6 +77,12 @@ Provides information about the current settings for crate and cargo notification
 
 Displays the next scheduled crate or cargo event.
 
+### Remove Command ([src/commands/remove.ts](src/commands/remove.ts))
+
+**Usage**: `/remove`
+
+Removes the current settings for crate and cargo notifications.
+
 These commands allow you to set up notification channels, roles, and auto-delete options for crate and cargo events in the Once Human game.
 
 ## 🤔 How to contribute
