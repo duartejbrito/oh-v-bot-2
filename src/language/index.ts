@@ -59,6 +59,14 @@ export const phrases = {
   next_respawns_message:
     "It is {0}:{1} UTC.\nCrates respawn at 00:00 UTC and every 4 hours after.\nCargo Scramble spawns at 12:00, 15:00, 18:30, and 22:00 UTC.\n\nNext crate respawn:\t\t{2} or ~{3}.\nNext Cargo Scramble:\t{4} or ~{5}.",
   info_message: "{0} {1} {2} {3}\n{4} {5} {6} {7}",
+  info_title: "Info",
+  info_crate_title: "Crate Setup",
+  info_crate_value:
+    "Channel: {0}\nRole: {1}\nAuto Delete: **{2}**\nMutes: **{3}**",
+  info_cargo_title: "Cargo Setup",
+  info_cargo_value:
+    "Channel: {0}\nRole: {1}\nAuto Delete: **{2}**\nMutes: **{3}**",
+  info_footer: "If you want to remove all your settings, type {0}",
 };
 
 export type TranslationLocale = keyof typeof translations;

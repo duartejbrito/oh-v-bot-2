@@ -1,5 +1,7 @@
 import {
+  Colors,
   CommandInteraction,
+  EmbedBuilder,
   InteractionContextType,
   PermissionFlagsBits,
   SlashCommandBuilder,
@@ -53,16 +55,33 @@ export async function execute(interaction: CommandInteraction) {
       .map(([_, value]) => value),
   };
 
+  const embed = new EmbedBuilder()
+    .setTitle(translation(locale).info_title)
+    .addFields(
+      {
+        name: translation(locale).info_crate_title,
+        value: translation(locale).info_crate_value.format(
+          crateInfo.channel?.toString() ?? "N/A",
+          crateInfo.role?.toString() ?? "N/A",
+          crateInfo.autoDelete ? "Enabled" : "Disabled" ?? "N/A",
+          crateInfo.mute.join(", ") ?? "N/A"
+        ),
+        inline: true,
+      },
+      {
+        name: translation(locale).info_cargo_title,
+        value: translation(locale).info_cargo_value.format(
+          cargoInfo.channel?.toString() ?? "N/A",
+          cargoInfo.role?.toString() ?? "N/A",
+          cargoInfo.autoDelete ? "Enabled" : "Disabled" ?? "N/A",
+          cargoInfo.mute.join(", ") ?? "N/A"
+        ),
+        inline: true,
+      }
+    )
+    .setColor(Colors.Green);
+
   await interaction.followUp({
-    content: translation(locale).info_message.format(
-      crateInfo.channel?.toString() ?? "N/A",
-      crateInfo.role?.toString() ?? "N/A",
-      crateInfo.autoDelete ? "Enable" : "Disabled" ?? "N/A",
-      crateInfo.mute.join(", ") ?? "N/A",
-      cargoInfo.channel?.toString() ?? "N/A",
-      cargoInfo.role?.toString() ?? "N/A",
-      cargoInfo.autoDelete ? "Enable" : "Disabled" ?? "N/A",
-      cargoInfo.mute.join(", ") ?? "N/A"
-    ),
+    embeds: [embed],
   });
 }
