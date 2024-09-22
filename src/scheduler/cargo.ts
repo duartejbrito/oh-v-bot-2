@@ -41,7 +41,7 @@ export class Cargo extends Schedule {
         translation(locale).cargo_message.format(
           time(fireDate, TimestampStyles.RelativeTime)
         ),
-        "",
+        translation(locale).cargo_footer,
         discordChannel,
         channel.roleId,
         channel.autoDelete ? toMilliseconds(3) : 0
