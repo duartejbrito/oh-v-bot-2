@@ -6,10 +6,9 @@ import {
 } from "discord.js";
 import { CargoChannel, CrateChannel } from "../db/models";
 import { translation } from "../language";
-import { Cargo } from "../scheduler/cargo";
-import { Crate } from "../scheduler/crate";
 import { getSelectMenuOptionsByRule, utils } from "../utils";
 import { logInfo } from "../utils/logger";
+import { selectMenusCommands } from ".";
 
 export const name = "info";
 
@@ -36,7 +35,7 @@ export async function execute(interaction: CommandInteraction) {
     ),
     role: interaction.guild?.roles.cache.get(crateChannel?.roleId ?? ""),
     autoDelete: crateChannel?.autoDelete,
-    mute: getSelectMenuOptionsByRule(Crate.name)
+    mute: getSelectMenuOptionsByRule(selectMenusCommands.crate.name)
       .filter(([key]) => crateChannel?.mute.includes(key))
       // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
       .map(([_, value]) => value),
@@ -48,7 +47,7 @@ export async function execute(interaction: CommandInteraction) {
     ),
     role: interaction.guild?.roles.cache.get(cargoChannel?.roleId ?? ""),
     autoDelete: cargoChannel?.autoDelete,
-    mute: getSelectMenuOptionsByRule(Cargo.name)
+    mute: getSelectMenuOptionsByRule(selectMenusCommands.cargo.name)
       .filter(([key]) => cargoChannel?.mute.includes(key))
       // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
       .map(([_, value]) => value),
