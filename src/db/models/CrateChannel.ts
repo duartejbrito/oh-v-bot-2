@@ -1,15 +1,6 @@
-import {
-  DataTypes,
-  InferAttributes,
-  InferCreationAttributes,
-  Model,
-  Sequelize,
-} from "sequelize";
+import { DataTypes, InferAttributes, Model, Sequelize } from "sequelize";
 
-export class CrateChannel extends Model<
-  InferAttributes<CrateChannel>,
-  InferCreationAttributes<CrateChannel>
-> {
+export class CrateChannel extends Model<InferAttributes<CrateChannel>> {
   declare guildId: string;
   declare channelId: string;
   declare roleId?: string;

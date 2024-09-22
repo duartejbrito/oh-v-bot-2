@@ -6,7 +6,7 @@ import db from "./db";
 import { initModels } from "./db/models";
 import { deployCommands, deployGuildCommands } from "./deploy-commands";
 import { scheduleJobs } from "./scheduler";
-import { logError, logInfo } from "./utils/logger";
+import { logInfo, logError } from "./utils/logger";
 
 export const client = new Client({
   intents: [GatewayIntentBits.Guilds],

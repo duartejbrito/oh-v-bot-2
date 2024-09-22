@@ -7,43 +7,8 @@ import { Crate } from "./crate";
 // import { Test } from "./test";
 import { logError, logInfo } from "../utils/logger";
 
-export const schedules = {
-  Crate,
-  Cargo,
-  // Test,
-};
-
 export const jobs = new Map<string, schedule.Job | schedule.Job[]>();
 export const rulesOptions = new Map<string, Map<string, string>>();
-
-export const tz = "Etc/UTC";
-
-export function scheduleJobs(this: void, client: Client) {
-  Object.entries(schedules).forEach(([jobName, schedule]) => {
-    schedule.rule.forEach((rule: string) => {
-      scheduleJob(jobName, rule, schedule.callback.bind(this, client), tz);
-      extractRuleOptions(jobName, rule, schedule.deltaMinutes);
-    });
-  });
-
-  return jobs;
-}
-
-export function extractRuleOptions(
-  jobName: string,
-  rule: string | string[],
-  deltaMinutes = 0
-) {
-  if (rule instanceof Array) {
-    rule.forEach((r) => {
-      extractCronOptions(jobName, r, deltaMinutes);
-    });
-  }
-
-  extractCronOptions(jobName, rule as string, deltaMinutes);
-
-  logInfo(`Rule options for ${yellow(jobName)}: ${rulesOptions.get(jobName)}`);
-}
 
 function extractCronOptions(jobName: string, rule: string, deltaMinutes = 0) {
   if (!rulesOptions.has(jobName)) {
@@ -77,6 +42,26 @@ function extractCronOptions(jobName: string, rule: string, deltaMinutes = 0) {
   });
 }
 
+export function extractRuleOptions(
+  jobName: string,
+  rule: string | string[],
+  deltaMinutes = 0
+) {
+  if (rule instanceof Array) {
+    rule.forEach((r) => {
+      extractCronOptions(jobName, r, deltaMinutes);
+    });
+  }
+
+  extractCronOptions(jobName, rule as string, deltaMinutes);
+
+  logInfo(
+    `Rule options for ${yellow(jobName)}: ${JSON.stringify(
+      Array.from(rulesOptions.get(jobName)?.entries() || [])
+    )}`
+  );
+}
+
 function scheduleJob(
   jobName: string,
   rule: string,
@@ -107,6 +92,31 @@ function scheduleJob(
   } catch (error) {
     logError(`Error while scheduling job ${jobName}: ${error}`);
   }
+}
+
+const schedules = {
+  Crate,
+  Cargo,
+  // Test,
+};
+
+const tz = "Etc/UTC";
+
+export function scheduleJobs(this: void, client: Client) {
+  Object.entries(schedules).forEach(([jobName, schedule]) => {
+    schedule.rule.forEach((rule: string) => {
+      const loweredJobName = jobName.toLowerCase();
+      scheduleJob(
+        loweredJobName,
+        rule,
+        schedule.callback.bind(this, client),
+        tz
+      );
+      extractRuleOptions(loweredJobName, rule, schedule.deltaMinutes);
+    });
+  });
+
+  return jobs;
 }
 
 //   // private rules = {

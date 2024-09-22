@@ -11,16 +11,6 @@ import {
 } from "discord.js";
 import { TranslationLocale } from "../language";
 
-export class PermissionError extends Error {
-  public type: PermissionErrorType;
-
-  constructor(type: PermissionErrorType) {
-    super();
-    this.type = type;
-    this.message = permissionErroMessage[type];
-  }
-}
-
 export enum PermissionErrorType {
   /* eslint-disable no-unused-vars */
   NO_FOUND_CHANNEL,
@@ -39,40 +29,22 @@ const permissionErroMessage = {
   [PermissionErrorType.NO_EMBED]: "No embed permission",
 };
 
+export class PermissionError extends Error {
+  public type: PermissionErrorType;
+
+  constructor(type: PermissionErrorType) {
+    super();
+    this.type = type;
+    this.message = permissionErroMessage[type];
+  }
+}
+
 export const getPreferredLocale = (
   channel: Channel | undefined
 ): TranslationLocale => {
   const locale = (channel as GuildChannel)?.guild.preferredLocale.toLowerCase();
   return (locale || "en-us") as TranslationLocale;
 };
-
-export function sendScheduledEmbed(
-  title: string,
-  description: string,
-  footer: string,
-  channel?: Channel,
-  roleId?: string,
-  autoDelete?: number,
-  color: ColorResolvable = Colors.Blurple
-) {
-  const permissionCheck = checkPermissions(channel);
-  if (permissionCheck) return permissionCheck;
-
-  const embed = new EmbedBuilder()
-    .setColor(color)
-    .setTitle(title)
-    .addFields([{ name: " ", value: description, inline: false }])
-    .setFooter({ text: footer });
-
-  const content = roleId ? `<@&${roleId}>` : undefined;
-
-  if (autoDelete && autoDelete > 0) {
-    return (channel as SendableChannels)
-      .send({ embeds: [embed], content })
-      .then((message) => setTimeout(() => message.delete(), autoDelete));
-  }
-  return (channel as SendableChannels).send({ embeds: [embed], content });
-}
 
 export function checkPermissions(channel?: Channel) {
   if (!channel)
@@ -102,6 +74,34 @@ export function checkPermissions(channel?: Channel) {
       .has(PermissionFlagsBits.EmbedLinks)
   )
     return new PermissionError(PermissionErrorType.NO_EMBED);
+}
+
+export function sendScheduledEmbed(
+  title: string,
+  description: string,
+  footer: string,
+  channel?: Channel,
+  roleId?: string,
+  autoDelete?: number,
+  color: ColorResolvable = Colors.Blurple
+) {
+  const permissionCheck = checkPermissions(channel);
+  if (permissionCheck) return permissionCheck;
+
+  const embed = new EmbedBuilder()
+    .setColor(color)
+    .setTitle(title)
+    .addFields([{ name: " ", value: description, inline: false }])
+    .setFooter({ text: footer });
+
+  const content = roleId ? `<@&${roleId}>` : undefined;
+
+  if (autoDelete && autoDelete > 0) {
+    return (channel as SendableChannels)
+      .send({ embeds: [embed], content })
+      .then((message) => setTimeout(() => message.delete(), autoDelete));
+  }
+  return (channel as SendableChannels).send({ embeds: [embed], content });
 }
 
 export function mentionCommand(interaction: CommandInteraction) {

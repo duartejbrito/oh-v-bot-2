@@ -12,13 +12,47 @@ import {
 } from "discord.js";
 import { CrateChannel } from "../db/models/CrateChannel";
 import { translation } from "../language";
-import { Crate } from "../scheduler/crate";
 import {
   getSelectMenuCommandName,
   getSelectMenuOptionsByRule,
   utils,
 } from "../utils";
 import { logInfo } from "../utils/logger";
+
+export const name = "crate";
+
+export const data = new SlashCommandBuilder()
+  .setName(name)
+  .setDescription("Commands related to crates")
+  .setContexts([InteractionContextType.Guild])
+  .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
+  .addSubcommand((subcommand) =>
+    subcommand
+      .setName("setup")
+      .setDescription("Setup for Weapon/Gear Crate respawn alerts.")
+      .addChannelOption((option) =>
+        option
+          .setName("channel")
+          .setDescription(
+            "The text/announcement channel you want notifications in."
+          )
+          .setRequired(true)
+      )
+      .addRoleOption((option) =>
+        option
+          .setName("role")
+          .setDescription("The role you want mentioned in the alert.")
+          .setRequired(false)
+      )
+      .addBooleanOption((option) =>
+        option
+          .setName("auto-delete")
+          .setDescription(
+            "Toggle Weapon/Gear Crate alerts to auto delete before the next post."
+          )
+          .setRequired(false)
+      )
+  );
 
 async function setupCrateChannel(interaction: CommandInteraction) {
   logInfo("Crate command setup executed");
@@ -69,7 +103,7 @@ async function setupCrateChannel(interaction: CommandInteraction) {
     ),
   });
 
-  const selectMenuOptions = getSelectMenuOptionsByRule(Crate.name).map(
+  const selectMenuOptions = getSelectMenuOptionsByRule(name).map(
     ([key, value]) =>
       new StringSelectMenuOptionBuilder().setLabel(value).setValue(key)
   );
@@ -96,41 +130,6 @@ async function setupCrateChannel(interaction: CommandInteraction) {
   });
 }
 
-export const name = "crate";
-
-export const data = new SlashCommandBuilder()
-  .setName(name)
-  .setDescription("Commands related to crates")
-  .setContexts([InteractionContextType.Guild])
-  .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
-  .addSubcommand((subcommand) =>
-    subcommand
-      .setName("setup")
-      .setDescription("Setup for Weapon/Gear Crate respawn alerts.")
-      .addChannelOption((option) =>
-        option
-          .setName("channel")
-          .setDescription(
-            "The text/announcement channel you want notifications in."
-          )
-          .setRequired(true)
-      )
-      .addRoleOption((option) =>
-        option
-          .setName("role")
-          .setDescription("The role you want mentioned in the alert.")
-          .setRequired(false)
-      )
-      .addBooleanOption((option) =>
-        option
-          .setName("auto-delete")
-          .setDescription(
-            "Toggle Weapon/Gear Crate alerts to auto delete before the next post."
-          )
-          .setRequired(false)
-      )
-  );
-
 export async function execute(interaction: CommandInteraction) {
   logInfo("Crate command executed");
   const options = interaction.options as CommandInteractionOptionResolver;
@@ -152,7 +151,7 @@ export async function executeSelectMenu(interaction: AnySelectMenuInteraction) {
       { where: { guildId: interaction.guildId! } }
     );
 
-    const mutesLabels = getSelectMenuOptionsByRule(Crate.name)
+    const mutesLabels = getSelectMenuOptionsByRule(name)
       .filter(([key]) => mutes.includes(key))
       // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
       .map(([_, value]) => value);

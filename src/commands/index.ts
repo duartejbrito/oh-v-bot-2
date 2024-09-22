@@ -1,11 +1,13 @@
 import * as cargo from "./cargo";
 import * as crate from "./crate";
 import * as deploy from "./deploy";
+import * as info from "./info";
 import * as next from "./next";
 import * as ping from "./ping";
 
 export const allCommands = {
   ping,
+  info,
   next,
   crate,
   cargo,
@@ -14,6 +16,7 @@ export const allCommands = {
 
 export const commands = {
   ping,
+  info,
   next,
   crate,
   cargo,

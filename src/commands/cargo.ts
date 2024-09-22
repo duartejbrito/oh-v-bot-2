@@ -12,13 +12,47 @@ import {
 } from "discord.js";
 import { CargoChannel } from "../db/models/CargoChannel";
 import { translation } from "../language";
-import { Cargo } from "../scheduler/cargo";
 import {
   getSelectMenuCommandName,
   getSelectMenuOptionsByRule,
   utils,
 } from "../utils";
 import { logInfo } from "../utils/logger";
+
+export const name = "cargo";
+
+export const data = new SlashCommandBuilder()
+  .setName(name)
+  .setDescription("Commands related to cargo")
+  .setContexts([InteractionContextType.Guild])
+  .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
+  .addSubcommand((subcommand) =>
+    subcommand
+      .setName("setup")
+      .setDescription("Setup for Cargo Scramble alerts.")
+      .addChannelOption((option) =>
+        option
+          .setName("channel")
+          .setDescription(
+            "The text/announcement channel you want notifications in."
+          )
+          .setRequired(true)
+      )
+      .addRoleOption((option) =>
+        option
+          .setName("role")
+          .setDescription("The role you want mentioned in the alert.")
+          .setRequired(false)
+      )
+      .addBooleanOption((option) =>
+        option
+          .setName("auto-delete")
+          .setDescription(
+            "Toggle Cargo Scramble alerts to auto delete before the next post."
+          )
+          .setRequired(false)
+      )
+  );
 
 async function setupCargoChannel(interaction: CommandInteraction) {
   logInfo("Cargo command setup executed");
@@ -69,7 +103,7 @@ async function setupCargoChannel(interaction: CommandInteraction) {
     ),
   });
 
-  const selectMenuOptions = getSelectMenuOptionsByRule(Cargo.name).map(
+  const selectMenuOptions = getSelectMenuOptionsByRule(name).map(
     ([key, value]) =>
       new StringSelectMenuOptionBuilder().setLabel(value).setValue(key)
   );
@@ -96,41 +130,6 @@ async function setupCargoChannel(interaction: CommandInteraction) {
   });
 }
 
-export const name = "cargo";
-
-export const data = new SlashCommandBuilder()
-  .setName(name)
-  .setDescription("Commands related to cargo")
-  .setContexts([InteractionContextType.Guild])
-  .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
-  .addSubcommand((subcommand) =>
-    subcommand
-      .setName("setup")
-      .setDescription("Setup for Cargo Scramble alerts.")
-      .addChannelOption((option) =>
-        option
-          .setName("channel")
-          .setDescription(
-            "The text/announcement channel you want notifications in."
-          )
-          .setRequired(true)
-      )
-      .addRoleOption((option) =>
-        option
-          .setName("role")
-          .setDescription("The role you want mentioned in the alert.")
-          .setRequired(false)
-      )
-      .addBooleanOption((option) =>
-        option
-          .setName("auto-delete")
-          .setDescription(
-            "Toggle Cargo Scramble alerts to auto delete before the next post."
-          )
-          .setRequired(false)
-      )
-  );
-
 export async function execute(interaction: CommandInteraction) {
   logInfo("Cargo command executed");
   const options = interaction.options as CommandInteractionOptionResolver;
@@ -152,7 +151,7 @@ export async function executeSelectMenu(interaction: AnySelectMenuInteraction) {
       { where: { guildId: interaction.guildId! } }
     );
 
-    const mutesLabels = getSelectMenuOptionsByRule(Cargo.name)
+    const mutesLabels = getSelectMenuOptionsByRule(name)
       .filter(([key]) => mutes.includes(key))
       // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
       .map(([_, value]) => value);
