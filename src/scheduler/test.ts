@@ -10,21 +10,12 @@ import { logError, logInfo } from "../utils/logger";
 
 export class Test extends Schedule {
   static rule = ["* * * * *"];
+  static deltaMinutes = 0;
   static override callback = async (client: Client, fireDate: Date) => {
     logInfo(
       `Job ${yellow(Test.name)} executed at ${yellow(fireDate.toISOString())}`
     );
     fireDate.setMinutes(0, 0, 0);
-
-    const channelsTesting = await CrateChannel.findAll({
-      where: {
-        [Op.not]: {
-          mute: { [Op.contains]: [20] },
-        },
-      },
-    });
-    console.log(channelsTesting.length);
-
     const channels = await CrateChannel.findAll();
     channels.forEach((channel) => {
       const discordChannel = client.channels.cache.get(channel.channelId);
@@ -37,7 +28,7 @@ export class Test extends Schedule {
         translation(locale).crate_footer,
         discordChannel,
         channel.roleId,
-        channel.autoDelete ? 5000 : 0
+        channel.autoDelete ? 30000 : 0
       );
 
       if (result instanceof PermissionError) {

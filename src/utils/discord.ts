@@ -1,5 +1,6 @@
 import {
   Channel,
+  Client,
   ColorResolvable,
   Colors,
   CommandInteraction,
@@ -9,6 +10,8 @@ import {
   PermissionFlagsBits,
   SendableChannels,
 } from "discord.js";
+import { logError, logInfo } from "./logger";
+import { AutoDeleteMessage } from "../db/models/AutoDeleteMessage";
 import { TranslationLocale } from "../language";
 
 export enum PermissionErrorType {
@@ -96,12 +99,26 @@ export function sendScheduledEmbed(
 
   const content = roleId ? `<@&${roleId}>` : undefined;
 
+  const message = (channel as SendableChannels).send({
+    embeds: [embed],
+    content,
+  });
+
   if (autoDelete && autoDelete > 0) {
-    return (channel as SendableChannels)
-      .send({ embeds: [embed], content })
-      .then((message) => setTimeout(() => message.delete(), autoDelete));
+    return message.then(async (message) => {
+      await AutoDeleteMessage.create({
+        guildId: (channel as GuildChannel).guild.id,
+        channelId: channel!.id,
+        messageId: message.id,
+        timeout: autoDelete,
+      });
+      setTimeout(async () => {
+        message.delete();
+        await AutoDeleteMessage.destroy({ where: { messageId: message.id } });
+      }, autoDelete);
+    });
   }
-  return (channel as SendableChannels).send({ embeds: [embed], content });
+  return message;
 }
 
 export function mentionCommand(interaction: CommandInteraction) {
@@ -119,4 +136,48 @@ export function mentionCommand(interaction: CommandInteraction) {
   }
 
   return `</${interaction.commandName}:${interaction.commandId}>`;
+}
+
+export async function handleDanglingMessages(client: Client) {
+  const autoDeleteMessages = await AutoDeleteMessage.findAll();
+
+  autoDeleteMessages.forEach(async (autoDeleteMessage) => {
+    const guild = client.guilds.cache.get(autoDeleteMessage.guildId);
+    if (guild) {
+      const channel = guild.channels.cache.get(autoDeleteMessage.channelId);
+      if (channel) {
+        try {
+          const message = await (channel as SendableChannels).messages.fetch(
+            autoDeleteMessage.messageId
+          );
+          logInfo(`Found message ${message.id} in channel ${channel.id}`);
+          if (message) {
+            const currentTime = new Date();
+            const deleteTime = message.createdAt.setTime(
+              message.createdAt.getTime() + autoDeleteMessage.timeout
+            );
+
+            if (currentTime.getTime() > deleteTime) {
+              message.delete();
+              await AutoDeleteMessage.destroy({
+                where: { messageId: message.id },
+              });
+            } else {
+              setTimeout(async () => {
+                message.delete();
+                await AutoDeleteMessage.destroy({
+                  where: { messageId: message.id },
+                });
+              }, deleteTime - currentTime.getTime());
+            }
+          }
+        } catch (error) {
+          logError(error as Error);
+          await AutoDeleteMessage.destroy({
+            where: { messageId: autoDeleteMessage.messageId },
+          });
+        }
+      }
+    }
+  });
 }

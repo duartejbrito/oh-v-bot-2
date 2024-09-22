@@ -6,6 +6,7 @@ import db from "./db";
 import { initModels } from "./db/models";
 import { deployCommands, deployGuildCommands } from "./deploy-commands";
 import { scheduleJobs } from "./scheduler";
+import { handleDanglingMessages } from "./utils/discord";
 import { logInfo, logError } from "./utils/logger";
 
 export const client = new Client({
@@ -14,7 +15,8 @@ export const client = new Client({
 
 client.once(Events.ClientReady, async () => {
   logInfo(`Discord bot is ready! 🤖 ${green(client.user!.tag)}`);
-  initModels(db);
+  await initModels(db);
+  await handleDanglingMessages(client);
   scheduleJobs(client);
 });
 

@@ -33,10 +33,10 @@ export class Crate extends Schedule {
 
     logInfoTemplate("Channels found: {0}", channels.length.toString());
 
-    channels.forEach((channel) => {
+    channels.forEach(async (channel) => {
       const discordChannel = client.channels.cache.get(channel.channelId);
       const locale = utils.discord.getPreferredLocale(discordChannel);
-      const result = utils.discord.sendScheduledEmbed(
+      const result = await utils.discord.sendScheduledEmbed(
         translation(locale).crate_title,
         translation(locale).crate_message.format(
           time(fireDate, TimestampStyles.ShortTime)

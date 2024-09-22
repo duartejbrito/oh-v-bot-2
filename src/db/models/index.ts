@@ -1,20 +1,22 @@
 import type { Sequelize } from "sequelize";
+import { AutoDeleteMessage } from "./AutoDeleteMessage";
 import { CargoChannel } from "./CargoChannel";
 import { CrateChannel } from "./CrateChannel";
 
-export { CrateChannel, CargoChannel };
+export { CrateChannel, CargoChannel, AutoDeleteMessage };
 
-export function initModels(sequelize: Sequelize) {
+export async function initModels(sequelize: Sequelize) {
   CrateChannel.initModel(sequelize);
   CargoChannel.initModel(sequelize);
+  AutoDeleteMessage.initModel(sequelize);
 
-  sequelize.sync({
+  await sequelize.sync({
     alter: true,
-    logging: false,
   });
 
   return {
     CrateChannel,
     CargoChannel,
+    AutoDeleteMessage,
   };
 }
