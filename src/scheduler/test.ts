@@ -1,5 +1,5 @@
 import { yellow } from "colors/safe";
-import { Client, Locale, time, TimestampStyles } from "discord.js";
+import { Client, time, TimestampStyles } from "discord.js";
 import { Schedule } from "./schedule";
 import { CrateChannel } from "../db/models/CrateChannel";
 import { changeLanguage, t, TranslationKey } from "../locales";
@@ -19,7 +19,7 @@ export class Test extends Schedule {
     channels.forEach(async (channel) => {
       const discordChannel = client.channels.cache.get(channel.channelId);
       const locale = utils.discord.getPreferredLocale(discordChannel);
-      await changeLanguage(Locale.PortugueseBR);
+      await changeLanguage(locale);
       const result = utils.discord.sendScheduledEmbed(
         t(TranslationKey.crate_title),
         t(TranslationKey.crate_message).format(

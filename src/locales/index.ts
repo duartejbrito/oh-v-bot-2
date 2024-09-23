@@ -1,6 +1,7 @@
 import { Locale } from "discord.js";
 import i18next from "i18next";
 import Backend from "i18next-fs-backend";
+import { config } from "../config";
 
 export const translations = {
   check_channel_type_error:
@@ -40,9 +41,9 @@ export const translations = {
 export const supportedLngs = Object.values(Locale);
 
 i18next.use(Backend).init({
-  lng: "dev", // if you're using a language detector, do not define the lng option
+  lng: Locale.EnglishUS, // if you're using a language detector, do not define the lng option
   supportedLngs,
-  debug: false,
+  debug: config.I18N_LOGGING,
   saveMissing: true,
   backend: {
     loadPath: "./src/locales/{{lng}}/{{ns}}.json",

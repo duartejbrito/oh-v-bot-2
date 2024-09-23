@@ -11,6 +11,7 @@ const {
   OWNER_CHANNEL_ID,
   PG_CONNECTION_STRING,
   PG_LOGGING,
+  I18N_LOGGING,
 } = process.env;
 
 if (!DISCORD_TOKEN || !DISCORD_CLIENT_ID) {
@@ -25,4 +26,5 @@ export const config = {
   OWNER_CHANNEL_ID,
   PG_CONNECTION_STRING,
   PG_LOGGING: PG_LOGGING ? PG_LOGGING === "true" : false,
+  I18N_LOGGING: I18N_LOGGING ? I18N_LOGGING === "true" : false,
 };

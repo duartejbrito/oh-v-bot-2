@@ -4,7 +4,7 @@ import { Client } from "discord.js";
 import * as schedule from "node-schedule";
 import { Cargo } from "./cargo";
 import { Crate } from "./crate";
-// import { Test } from "./test";
+import { Test } from "./test";
 import { logError, logInfo } from "../utils/logger";
 
 export const jobs = new Map<string, schedule.Job | schedule.Job[]>();
@@ -97,7 +97,7 @@ function scheduleJob(
 const schedules = {
   Crate,
   Cargo,
-  // Test,
+  Test,
 };
 
 const tz = "Etc/UTC";
