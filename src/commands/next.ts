@@ -8,10 +8,9 @@ import {
 import { Job } from "node-schedule";
 import { translation } from "../language";
 import { jobs } from "../scheduler";
-import { Cargo } from "../scheduler/cargo";
-import { Crate } from "../scheduler/crate";
 import { utils } from "../utils";
 import { logInfo } from "../utils/logger";
+import { allCommands } from ".";
 
 export const name = "next";
 
@@ -29,10 +28,10 @@ export async function execute(interaction: CommandInteraction) {
   const locale = utils.discord.getPreferredLocale(interaction.channel!);
 
   const now = new Date();
-  const crateJob = jobs.get(Crate.name) as Job;
+  const crateJob = jobs.get(allCommands.crate.name) as Job;
   const nextCrate = crateJob.nextInvocation();
 
-  const cargoJobs = jobs.get(Cargo.name) as Job[];
+  const cargoJobs = jobs.get(allCommands.cargo.name) as Job[];
   const nextCargoDates = cargoJobs.map((job) => job.nextInvocation().getTime());
   const nextCargo = new Date(Math.min.apply(null, nextCargoDates));
 
