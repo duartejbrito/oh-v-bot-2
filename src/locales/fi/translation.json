@@ -1,0 +1,23 @@
+{
+  "setup_cargo_channel_ping": "{0}, tälle kanavalle lähetetään rahtihälytyksiä!",
+  "crate_channel_alert_error": "[CRATE] Botti ei pysty lähettämään viestejä tai katsomaan kanavaa, jonka olet valinnut aseiden/varusteiden laatikon uudelleensyntymishälytyksille, {0}.\nMuokkaa kanavan asetuksia napsauttamalla kanavan nimeä hiiren kakkospainikkeella ja varmista, että botin tai sen roolin Näytä kanava, Lähetä viestit ja Upota linkit -asetuksena on ✅ (vihreä valintamerkki), ja yritä uudelleen.\n-# Jos tarvitset apua, liity tukipalvelimeen.",
+  "crate_title": "Kun ihmisvarusteet/aselaatikot nollataan",
+  "cargo_message": "Cargo scramble -tapahtumassa on mahdollisuus synnyttää {0}!",
+  "cargo_channel_alert_error": "[CARGO] Botti ei pysty lähettämään viestejä/katsomaan kanavaa kanavalla, jonka olet valinnut lastihälytyksille, {0}.\nMuokkaa kanavan asetuksia napsauttamalla kanavan nimeä hiiren kakkospainikkeella ja varmista, että botin tai sen roolin Näytä kanava, Lähetä viestit ja Upota linkit -asetuksena on ✅ (vihreä valintamerkki), ja yritä uudelleen.\n-# Jos tarvitset apua, liity tukipalvelimeen.",
+  "info_title": "Tiedot",
+  "info_message": "{0} {1} {2} {3}\n{4} {5} {6} {7}",
+  "cargo_title": "Once Human Cargo Scramble Spawn",
+  "crate_message": "Tämä on {0}-nollausilmoitus.",
+  "setup_crate_success": "Laatikon hälytysten lähtökanavaksi on asetettu {0}!\nRooli, joka mainitaan, on {1}.\n**{2}** aiempien Weapon/Gear Crate -hälytysten automaattinen poistaminen.\n-# Jos et saa ilmoitusta, kun odotat sitä, liity tukipalvelimeen ja ilmoita siitä minulle.",
+  "setup_cargo_success": "Rahtihälytyshälytysten lähtökanavaksi on asetettu {0}!\nRooli, joka mainitaan, on {1}.\n**{2}** aiempien Cargo Scramblen syntymishälytysten automaattinen poistaminen.\n-# Jos et saa ilmoitusta, kun odotat sitä, liity tukipalvelimeen ja ilmoita siitä minulle.",
+  "cargo_footer": "Mennään PvP:hen!!!",
+  "info_crate_value": "Kanava: {0}\nRooli: {1}\nAutomaattinen poisto: **{2}**\nMykistykset: **{3}**",
+  "next_respawns_message": "Kello on {0}:{1} UTC.\nLaatikot ilmestyvät uudelleen klo 00.00 UTC ja sen jälkeen 4 tunnin välein.\nCargo Scramble syntyy klo 12.00, 15.00, 18.30 ja 22.00 UTC.\n\nSeuraava laatikon uudelleensyntyminen: {2} tai ~{3}.\nSeuraava Cargo Scramble: {4} tai ~{5}.",
+  "info_cargo_value": "Kanava: {0}\nRooli: {1}\nAutomaattinen poisto: **{2}**\nMykistykset: **{3}**",
+  "info_footer": "Jos haluat poistaa kaikki asetuksesi, kirjoita {0}",
+  "info_crate_title": "Laatikon asetukset",
+  "check_channel_type_error": "Tämä botti tukee vain teksti-/ilmoituskanavia.\nOle hyvä ja {0} kanavasi uudelleen.",
+  "crate_footer": "Kirjaudu ulos päävalikkoon ja kirjaudu takaisin sisään nähdäksesi nollatut arkut.",
+  "setup_crate_channel_ping": "{0}, tälle kanavalle lähetetään varoituksia ase-/varustelaatikon uudelleensyntymisestä!",
+  "info_cargo_title": "Lastin asetukset"
+}

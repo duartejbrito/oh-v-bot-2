@@ -7,7 +7,7 @@ import {
   SlashCommandBuilder,
 } from "discord.js";
 import { CargoChannel, CrateChannel } from "../db/models";
-import { translation } from "../language";
+import { changeLanguage, t, TranslationKey } from "../locales";
 import { getSelectMenuOptionsByRule, utils } from "../utils";
 import { logInfo } from "../utils/logger";
 import { selectMenusCommands } from ".";
@@ -30,6 +30,7 @@ export async function execute(interaction: CommandInteraction) {
   const cargoChannel = await CargoChannel.findOne({ where: { guildId } });
 
   const locale = utils.discord.getPreferredLocale(interaction.channel!);
+  await changeLanguage(locale);
 
   const crateInfo = {
     channel: interaction.client.channels.cache.get(
@@ -56,11 +57,11 @@ export async function execute(interaction: CommandInteraction) {
   };
 
   const embed = new EmbedBuilder()
-    .setTitle(translation(locale).info_title)
+    .setTitle(t(TranslationKey.info_title))
     .addFields(
       {
-        name: translation(locale).info_crate_title,
-        value: translation(locale).info_crate_value.format(
+        name: t(TranslationKey.info_crate_title),
+        value: t(TranslationKey.info_crate_value).format(
           crateInfo.channel?.toString() ?? "N/A",
           crateInfo.role?.toString() ?? "N/A",
           crateInfo.autoDelete ? "Enabled" : "Disabled" ?? "N/A",
@@ -69,8 +70,8 @@ export async function execute(interaction: CommandInteraction) {
         inline: true,
       },
       {
-        name: translation(locale).info_cargo_title,
-        value: translation(locale).info_cargo_value.format(
+        name: t(TranslationKey.info_cargo_title),
+        value: t(TranslationKey.info_cargo_value).format(
           cargoInfo.channel?.toString() ?? "N/A",
           cargoInfo.role?.toString() ?? "N/A",
           cargoInfo.autoDelete ? "Enabled" : "Disabled" ?? "N/A",

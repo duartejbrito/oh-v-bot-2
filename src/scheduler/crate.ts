@@ -3,7 +3,7 @@ import { Client, time, TimestampStyles } from "discord.js";
 import { Op } from "sequelize";
 import { Schedule } from "./schedule";
 import { CrateChannel } from "../db/models/CrateChannel";
-import { translation } from "../language";
+import { changeLanguage, t, TranslationKey } from "../locales";
 import { toMilliseconds, utils } from "../utils";
 import { PermissionError, PermissionErrorType } from "../utils/discord";
 import { logError, logInfo, logInfoTemplate } from "../utils/logger";
@@ -36,12 +36,13 @@ export class Crate extends Schedule {
     channels.forEach(async (channel) => {
       const discordChannel = client.channels.cache.get(channel.channelId);
       const locale = utils.discord.getPreferredLocale(discordChannel);
+      await changeLanguage(locale);
       const result = await utils.discord.sendScheduledEmbed(
-        translation(locale).crate_title,
-        translation(locale).crate_message.format(
+        t(TranslationKey.crate_title),
+        t(TranslationKey.crate_message).format(
           time(fireDate, TimestampStyles.ShortTime)
         ),
-        translation(locale).crate_footer,
+        t(TranslationKey.crate_footer),
         discordChannel,
         channel.roleId,
         channel.autoDelete ? toMilliseconds(4) : 0

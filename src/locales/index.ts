@@ -1,41 +1,8 @@
-import { translations } from "./translations";
+import { Locale } from "discord.js";
+import i18next from "i18next";
+import Backend from "i18next-fs-backend";
 
-export const languages = {
-  bg: "bg",
-  hr: "hr",
-  cs: "cs",
-  da: "da",
-  nl: "nl",
-  "en-us": "en",
-  "en-gb": "en",
-  fi: "fi",
-  fr: "fr",
-  de: "de",
-  el: "el",
-  hi: "hi",
-  hu: "hu",
-  id: "id",
-  it: "it",
-  ja: "ja",
-  ko: "ko",
-  lt: "lt",
-  no: "no",
-  pl: "pl",
-  "pt-br": "pt",
-  ro: "ro",
-  ru: "ru",
-  "es-es": "es",
-  "es-419": "es",
-  "sv-se": "sv",
-  th: "th",
-  tr: "tr",
-  uk: "uk",
-  vi: "vi",
-  "zh-cn": "zh-CN",
-  "zh-tw": "zh-TW",
-};
-
-export const phrases = {
+export const translations = {
   check_channel_type_error:
     "This bot only supports text/announcement channels.\nPlease {0} your channel again.",
   crate_channel_alert_error:
@@ -70,8 +37,47 @@ export const phrases = {
   info_footer: "If you want to remove all your settings, type {0}",
 };
 
-export type TranslationLocale = keyof typeof translations;
+export const supportedLngs = Object.values(Locale);
 
-export const translation = (locale: TranslationLocale) => {
-  return translations[locale] || translations["en-us"];
-};
+i18next.use(Backend).init({
+  lng: "dev", // if you're using a language detector, do not define the lng option
+  supportedLngs,
+  debug: false,
+  saveMissing: true,
+  backend: {
+    loadPath: "./src/locales/{{lng}}/{{ns}}.json",
+    addPath: "./src/locales/{{lng}}/{{ns}}.missing.json",
+  },
+});
+
+export { changeLanguage } from "i18next";
+
+export enum TranslationKey {
+  /* eslint-disable no-unused-vars */
+  check_channel_type_error = "check_channel_type_error",
+  crate_channel_alert_error = "crate_channel_alert_error",
+  setup_crate_channel_ping = "setup_crate_channel_ping",
+  setup_crate_success = "setup_crate_success",
+  crate_title = "crate_title",
+  crate_message = "crate_message",
+  crate_footer = "crate_footer",
+  cargo_channel_alert_error = "cargo_channel_alert_error",
+  setup_cargo_channel_ping = "setup_cargo_channel_ping",
+  setup_cargo_success = "setup_cargo_success",
+  cargo_title = "cargo_title",
+  cargo_message = "cargo_message",
+  cargo_footer = "cargo_footer",
+  next_respawns_message = "next_respawns_message",
+  info_message = "info_message",
+  info_title = "info_title",
+  info_crate_title = "info_crate_title",
+  info_crate_value = "info_crate_value",
+  info_cargo_title = "info_cargo_title",
+  info_cargo_value = "info_cargo_value",
+  info_footer = "info_footer",
+  /* eslint-enable no-unused-vars */
+}
+
+export function t(key: TranslationKey): string {
+  return i18next.t(key);
+}

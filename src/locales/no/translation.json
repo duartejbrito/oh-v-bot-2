@@ -1,0 +1,23 @@
+{
+  "setup_cargo_channel_ping": "{0}, denne kanalen er hvor lastscramble-varsler vil bli sendt!",
+  "info_title": "Info",
+  "crate_channel_alert_error": "[CRATE] Boten er ikke i stand til å sende meldinger/se kanalen i kanalen du har valgt for varsler om gjenoppretting av våpen/utstyr, {0}.\nRediger kanalinnstillingene ved å høyreklikke på kanalnavnet og sørg for at boten eller dens rolle har Vis kanal, Send meldinger og Legg inn koblinger satt til ✅ (grønn hake) og prøv igjen.\n-# Hvis du trenger hjelp, vennligst bli med på supportserveren.",
+  "crate_footer": "Logg ut til hovedmenyen og logg på igjen for å se tilbakestillingsboksene.",
+  "cargo_footer": "La oss gå PvP!!!",
+  "setup_crate_channel_ping": "{0}, denne kanalen er hvor varsler om gjenoppretting av våpen/utstyr blir sendt!",
+  "info_crate_value": "Kanal: {0}\nRolle: {1}\nAutomatisk sletting: **{2}**\nDemper: **{3}**",
+  "cargo_title": "Once Human Cargo Scramble Spawn",
+  "info_message": "{0} {1} {2} {3}\n{4} {5} {6} {7}",
+  "setup_cargo_success": "Utgangskanalen for lastkrypteringsvarsler er satt til {0}!\nRollen som vil bli nevnt er {1}.\n**{2}** automatisk sletting av tidligere Cargo Scramble spawn-varsler.\n-# Hvis du ikke får et varsel når du forventer det, vennligst bli med på støtteserveren og gi meg beskjed.",
+  "cargo_channel_alert_error": "[CARGO] Boten er ikke i stand til å sende meldinger/se kanalen i kanalen du har valgt for varsling om lastscramble spawn, {0}.\nRediger kanalinnstillingene ved å høyreklikke på kanalnavnet og sørg for at boten eller dens rolle har Vis kanal, Send meldinger og Legg inn koblinger satt til ✅ (grønn hake) og prøv igjen.\n-# Hvis du trenger hjelp, vennligst bli med på supportserveren.",
+  "info_footer": "Hvis du vil fjerne alle innstillingene, skriver du inn {0}",
+  "crate_title": "En gang tilbakestilling av menneskelig utstyr/våpenkasser",
+  "crate_message": "Dette er kunngjøringen for tilbakestilling av {0}.",
+  "check_channel_type_error": "Denne boten støtter kun tekst-/kunngjøringskanaler.\nVennligst {0} kanalen din igjen.",
+  "next_respawns_message": "Det er {0}:{1} UTC.\nKasser gjenopprettes kl. 00:00 UTC og hver 4. time etter.\nCargo Scramble gyter klokken 12:00, 15:00, 18:30 og 22:00 UTC.\n\nNeste gjenoppretting av kasse: {2} eller ~{3}.\nNeste Cargo Scramble: {4} eller ~{5}.",
+  "info_cargo_value": "Kanal: {0}\nRolle: {1}\nAutomatisk sletting: **{2}**\nDemper: **{3}**",
+  "info_cargo_title": "Lasteoppsett",
+  "cargo_message": "Cargo Scramble-arrangementet har en sjanse til å skape {0}!",
+  "setup_crate_success": "Utgangskanalen for kassevarsler er satt til {0}!\nRollen som vil bli nevnt er {1}.\n**{2}** automatisk sletting av tidligere varsler om gjenoppretting av våpen/girkasse.\n-# Hvis du ikke får et varsel når du forventer det, vennligst bli med på støtteserveren og gi meg beskjed.",
+  "info_crate_title": "Oppsett av kasse"
+}

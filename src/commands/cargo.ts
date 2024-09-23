@@ -11,7 +11,7 @@ import {
   StringSelectMenuOptionBuilder,
 } from "discord.js";
 import { CargoChannel } from "../db/models/CargoChannel";
-import { translation } from "../language";
+import { changeLanguage, t, TranslationKey } from "../locales";
 import {
   getSelectMenuCommandName,
   getSelectMenuOptionsByRule,
@@ -67,15 +67,16 @@ async function setupCargoChannel(interaction: CommandInteraction) {
   const checkPermission = utils.discord.checkPermissions(discordChannel);
 
   const locale = utils.discord.getPreferredLocale(discordChannel);
+  await changeLanguage(locale);
 
   if (checkPermission) {
     const content =
       checkPermission.type ===
       utils.discord.PermissionErrorType.NO_SENDABLE_CHANNEL
-        ? translation(locale).check_channel_type_error.format(
+        ? t(TranslationKey.check_channel_type_error).format(
             utils.discord.mentionCommand(interaction)
           )
-        : translation(locale).cargo_channel_alert_error.format(
+        : t(TranslationKey.cargo_channel_alert_error).format(
             discordChannel.toString()
           );
 
@@ -98,7 +99,7 @@ async function setupCargoChannel(interaction: CommandInteraction) {
   } as CargoChannel);
 
   await (discordChannel as SendableChannels).send({
-    content: translation(locale).setup_cargo_channel_ping.format(
+    content: t(TranslationKey.setup_cargo_channel_ping).format(
       discordChannel.toString()
     ),
   });
@@ -120,7 +121,7 @@ async function setupCargoChannel(interaction: CommandInteraction) {
   );
 
   await interaction.followUp({
-    content: translation(locale).setup_cargo_success.format(
+    content: t(TranslationKey.setup_cargo_success).format(
       discordChannel.toString(),
       role ? role.toString() : "None",
       autoDelete ? "Enable" : "Disable"

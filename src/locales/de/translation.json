@@ -1,0 +1,23 @@
+{
+  "setup_crate_channel_ping": "{0}, über diesen Kanal werden Waffen-/Ausrüstungskisten-Respawn-Benachrichtigungen gesendet!",
+  "setup_crate_success": "Ihr Ausgabekanal für Kistenwarnungen wurde auf {0} gesetzt!\nDie erwähnte Rolle ist {1}.\n**{2}** Automatisches Löschen früherer Respawn-Benachrichtigungen zu Waffen/Ausrüstungskisten.\n-# Wenn Sie zum erwarteten Zeitpunkt keine Benachrichtigung erhalten, melden Sie sich bitte beim Support-Server an und teilen Sie mir dies mit.",
+  "crate_message": "Dies ist die Ankündigung zum Zurücksetzen von {0}.",
+  "info_footer": "Wenn Sie alle Ihre Einstellungen entfernen möchten, geben Sie {0} ein.",
+  "cargo_footer": "Lass uns ins PvP gehen!!!",
+  "info_cargo_value": "Kanal: {0}\nRolle: {1}\nAutomatisches Löschen: **{2}**\nStummschaltung: **{3}**",
+  "info_message": "{0} {1} {2} {3}\n{4} {5} {6} {7}",
+  "cargo_message": "Das Fracht-Scramble-Event hat die Chance, {0} zu spawnen!",
+  "info_crate_value": "Kanal: {0}\nRolle: {1}\nAutomatisches Löschen: **{2}**\nStummschaltung: **{3}**",
+  "next_respawns_message": "Es ist {0}:{1} UTC.\nKisten erscheinen um 00:00 UTC und danach alle 4 Stunden neu.\nCargo Scramble erscheint um 12:00, 15:00, 18:30 und 22:00 UTC.\n\nNächster Kisten-Respawn: {2} oder ~{3}.\nNächstes Frachtgefecht: {4} oder ~{5}.",
+  "info_crate_title": "Kisten-Setup",
+  "setup_cargo_channel_ping": "{0}, über diesen Kanal werden Benachrichtigungen zu Frachtproblemen gesendet!",
+  "info_cargo_title": "Fracht-Setup",
+  "cargo_title": "Einmal menschlicher Fracht-Scramble-Spawn",
+  "check_channel_type_error": "Dieser Bot unterstützt nur Text-/Ankündigungskanäle.\nBitte {0} deinen Kanal erneut.",
+  "cargo_channel_alert_error": "[CARGO] Der Bot ist nicht in der Lage, Nachrichten zu senden/den Kanal anzuzeigen, den Sie für Fracht-Scramble-Spawn-Benachrichtigungen ausgewählt haben, {0}.\nBitte bearbeiten Sie die Kanaleinstellungen, indem Sie mit der rechten Maustaste auf den Kanalnamen klicken und sicherstellen, dass für den Bot oder seine Rolle „Kanal anzeigen“, „Nachrichten senden“ und „Links einbetten“ auf ✅ (grünes Häkchen) gesetzt ist, und versuchen Sie es erneut.\n-# Wenn Sie Hilfe benötigen, treten Sie bitte dem Support-Server bei.",
+  "info_title": "Info",
+  "crate_channel_alert_error": "[CRATE] Der Bot ist nicht in der Lage, Nachrichten zu senden/den Kanal anzuzeigen, den Sie für die Respawn-Benachrichtigungen zu Waffen-/Ausrüstungskisten ausgewählt haben, {0}.\nBitte bearbeiten Sie die Kanaleinstellungen, indem Sie mit der rechten Maustaste auf den Kanalnamen klicken und sicherstellen, dass für den Bot oder seine Rolle „Kanal anzeigen“, „Nachrichten senden“ und „Links einbetten“ auf ✅ (grünes Häkchen) gesetzt ist, und versuchen Sie es erneut.\n-# Wenn Sie Hilfe benötigen, treten Sie bitte dem Support-Server bei.",
+  "crate_footer": "Melden Sie sich im Hauptmenü ab und wieder an, um die zurückgesetzten Truhen anzuzeigen.",
+  "crate_title": "Sobald menschliche Ausrüstung/Waffenkisten zurückgesetzt werden",
+  "setup_cargo_success": "Ihr Ausgabekanal für Fracht-Scramble-Warnungen wurde auf {0} gesetzt!\nDie erwähnte Rolle ist {1}.\n**{2}** automatische Löschung früherer Cargo Scramble-Spawn-Benachrichtigungen.\n-# Wenn Sie zum erwarteten Zeitpunkt keine Benachrichtigung erhalten, melden Sie sich bitte beim Support-Server an und teilen Sie mir dies mit."
+}

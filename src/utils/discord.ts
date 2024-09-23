@@ -7,12 +7,12 @@ import {
   CommandInteractionOptionResolver,
   EmbedBuilder,
   GuildChannel,
+  Locale,
   PermissionFlagsBits,
   SendableChannels,
 } from "discord.js";
 import { logError, logInfo } from "./logger";
 import { AutoDeleteMessage } from "../db/models/AutoDeleteMessage";
-import { TranslationLocale } from "../language";
 
 export enum PermissionErrorType {
   /* eslint-disable no-unused-vars */
@@ -42,11 +42,9 @@ export class PermissionError extends Error {
   }
 }
 
-export const getPreferredLocale = (
-  channel: Channel | undefined
-): TranslationLocale => {
-  const locale = (channel as GuildChannel)?.guild.preferredLocale.toLowerCase();
-  return (locale || "en-us") as TranslationLocale;
+export const getPreferredLocale = (channel: Channel | undefined): Locale => {
+  const locale = (channel as GuildChannel)?.guild.preferredLocale;
+  return locale || Locale.EnglishUS;
 };
 
 export function checkPermissions(channel?: Channel) {

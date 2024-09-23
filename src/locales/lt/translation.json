@@ -1,0 +1,23 @@
+{
+  "info_crate_title": "Dėžės sąranka",
+  "setup_crate_channel_ping": "{0}, šis kanalas yra tas, kur bus siunčiami įspėjimai apie ginklo / įrankių dėžės atgimimą!",
+  "crate_title": "Iš naujo nustatę žmogaus įrangą / ginklo dėžes",
+  "crate_channel_alert_error": "[CRATE] Botas negali siųsti pranešimų / peržiūrėti kanalo kanale, kurį pasirinkote įspėjimams apie ginklo / įrankių dėžės atkūrimą, {0}.\nRedaguokite kanalo nustatymus dešiniuoju pelės mygtuku spustelėdami kanalo pavadinimą ir įsitikinkite, kad roboto arba jo vaidmens peržiūros kanalo, pranešimų siuntimo ir įterpimo nuorodų reikšmė yra ✅ (žalia varnelė), ir bandykite dar kartą.\n-# Jei jums reikia pagalbos, prisijunkite prie palaikymo serverio.",
+  "next_respawns_message": "Tai {0}:{1} UTC.\nDėžės atgimsta 00:00 UTC ir po to kas 4 valandas.\n„Cargo Scramble“ neršia 12:00, 15:00, 18:30 ir 22:00 UTC.\n\nKitas dėžės atkūrimas: {2} arba ~{3}.\nKitas krovinių peštynės: {4} arba ~{5}.",
+  "cargo_footer": "Eime PvP!!!",
+  "info_cargo_title": "Krovinio nustatymas",
+  "info_cargo_value": "Kanalas: {0}\nVaidmuo: {1}\nAutomatinis ištrynimas: **{2}**\nNutildo: **{3}**",
+  "setup_cargo_success": "Jūsų krovinio grumtynės įspėjimų išvesties kanalas nustatytas į {0}!\nVaidmuo, kuris bus paminėtas, yra {1}.\n**{2}** automatinis ankstesnių „Cargo Scramble“ įspėjimų ištrynimas.\n-# Jei negaunate įspėjimo, kai tikitės, prisijunkite prie palaikymo serverio ir praneškite man.",
+  "info_footer": "Jei norite pašalinti visus nustatymus, įveskite {0}",
+  "cargo_title": "Kadaise žmonių krovinių peštynės nerštis",
+  "crate_message": "Tai yra {0} atstatymo pranešimas.",
+  "cargo_channel_alert_error": "[CARGO] Botas negali siųsti pranešimų / peržiūrėti kanalo kanale, kurį pasirinkote perspėjimams apie krovinių mušimąsi, {0}.\nRedaguokite kanalo nustatymus dešiniuoju pelės mygtuku spustelėdami kanalo pavadinimą ir įsitikinkite, kad roboto arba jo vaidmens peržiūros kanalo, pranešimų siuntimo ir įterpimo nuorodų reikšmė yra ✅ (žalia varnelė), ir bandykite dar kartą.\n-# Jei jums reikia pagalbos, prisijunkite prie palaikymo serverio.",
+  "info_title": "Informacija",
+  "check_channel_type_error": "Šis robotas palaiko tik teksto / pranešimų kanalus.\nDar kartą {0} savo kanalą.",
+  "setup_cargo_channel_ping": "{0}, šiuo kanalu bus siunčiami įspėjimai apie krovinio grumtynes!",
+  "setup_crate_success": "Jūsų dėžės įspėjimų išvesties kanalas nustatytas į {0}!\nVaidmuo, kuris bus paminėtas, yra {1}.\n**{2}** automatinis ankstesnių ginklų / įrankių dėžės perspėjimų ištrynimas.\n-# Jei negaunate įspėjimo, kai tikitės, prisijunkite prie palaikymo serverio ir praneškite man.",
+  "info_message": "{0} {1} {2} {3}\n{4} {5} {6} {7}",
+  "cargo_message": "Krovinių grumtynių įvykis turi galimybę pagimdyti {0}!",
+  "crate_footer": "Atsijunkite prie pagrindinio meniu ir vėl prisijunkite, kad pamatytumėte iš naujo nustatytas skrynias.",
+  "info_crate_value": "Kanalas: {0}\nVaidmuo: {1}\nAutomatinis ištrynimas: **{2}**\nNutildo: **{3}**"
+}

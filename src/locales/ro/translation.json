@@ -1,0 +1,23 @@
+{
+  "cargo_message": "Evenimentul de încărcare a încărcăturii are șansa de a genera {0}!",
+  "info_footer": "Dacă doriți să eliminați toate setările, introduceți {0}",
+  "crate_channel_alert_error": "[CRATE] Botul nu poate să trimită mesaje/să vadă canalul pe canalul pe care l-ați ales pentru alertele de reapariție a cutiei de arme/unelte, {0}.\nEditați setările canalului făcând clic dreapta pe numele canalului și asigurați-vă că botul sau rolul său are Vizualizare canal, Trimitere mesaje și Încorporare linkuri setate la ✅ (bifa verde) și încercați din nou.\n-# Dacă aveți nevoie de asistență, vă rugăm să vă alăturați serverului de asistență.",
+  "cargo_footer": "Să mergem la PvP!!!",
+  "cargo_channel_alert_error": "[CARGO] Botul nu poate să trimită mesaje/să vadă canalul pe canalul pe care l-ați ales pentru alertele de apariție a încărcăturii, {0}.\nEditați setările canalului făcând clic dreapta pe numele canalului și asigurați-vă că botul sau rolul său are Vizualizare canal, Trimitere mesaje și Încorporare linkuri setate la ✅ (bifa verde) și încercați din nou.\n-# Dacă aveți nevoie de asistență, vă rugăm să vă alăturați serverului de asistență.",
+  "info_message": "{0} {1} {2} {3}\n{4} {5} {6} {7}",
+  "setup_cargo_success": "Canalul de ieșire al alertelor de încărcare a încărcăturii a fost setat la {0}!\nRolul care va fi menționat este {1}.\n**{2}** ștergerea automată a alertelor anterioare de apariție a Cargo Scramble.\n-# Dacă nu primiți o alertă atunci când vă așteptați, vă rugăm să vă alăturați serverului de asistență și să mă anunțați.",
+  "setup_crate_channel_ping": "{0}, acest canal este locul unde vor fi trimise alertele de reapariție a cutiei de arme/unelte!",
+  "cargo_title": "Odată ce Human Cargo Scramble a apărut",
+  "crate_footer": "Deconectați-vă din meniul principal și conectați-vă din nou pentru a vedea cuferele resetate.",
+  "info_cargo_title": "Configurarea încărcăturii",
+  "info_cargo_value": "Canal: {0}\nRol: {1}\nȘtergere automată: **{2}**\nDezactivează: **{3}**",
+  "check_channel_type_error": "Acest bot acceptă numai canale de text/anunț.\nVă rugăm să {0} canalul dvs. din nou.",
+  "crate_message": "Acesta este anunțul de resetare {0}.",
+  "info_crate_value": "Canal: {0}\nRol: {1}\nȘtergere automată: **{2}**\nDezactivează: **{3}**",
+  "setup_cargo_channel_ping": "{0}, acest canal este locul unde vor fi trimise alertele de încărcare a încărcăturii!",
+  "crate_title": "Odată resetate lăzile de echipamente/arme umane",
+  "info_title": "Info",
+  "setup_crate_success": "Canalul dvs. de ieșire a alertelor de ladă a fost setat la {0}!\nRolul care va fi menționat este {1}.\n**{2}** ștergerea automată a alertelor anterioare de reapariție a cutiei de arme/unelte.\n-# Dacă nu primiți o alertă atunci când vă așteptați, vă rugăm să vă alăturați serverului de asistență și să mă anunțați.",
+  "next_respawns_message": "Este {0}:{1} UTC.\nLăzile reapar la 00:00 UTC și la fiecare 4 ore după.\nCargo Scramble apare la 12:00, 15:00, 18:30 și 22:00 UTC.\n\nUrmătoarea reapariție a cutiei: {2} sau ~{3}.\nUrmătoarea încărcătură de marfă: {4} sau ~{5}.",
+  "info_crate_title": "Configurare ladă"
+}

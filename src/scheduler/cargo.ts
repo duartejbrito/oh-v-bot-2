@@ -3,7 +3,7 @@ import { Client, time, TimestampStyles } from "discord.js";
 import { Op } from "sequelize";
 import { Schedule } from "./schedule";
 import { CargoChannel } from "../db/models/CargoChannel";
-import { translation } from "../language";
+import { changeLanguage, t, TranslationKey } from "../locales";
 import { toMilliseconds, utils } from "../utils";
 import { PermissionError, PermissionErrorType } from "../utils/discord";
 import { logError, logInfo, logInfoTemplate } from "../utils/logger";
@@ -36,12 +36,13 @@ export class Cargo extends Schedule {
     channels.forEach(async (channel) => {
       const discordChannel = client.channels.cache.get(channel.channelId);
       const locale = utils.discord.getPreferredLocale(discordChannel);
+      await changeLanguage(locale);
       const result = await utils.discord.sendScheduledEmbed(
-        translation(locale).cargo_title,
-        translation(locale).cargo_message.format(
+        t(TranslationKey.cargo_title),
+        t(TranslationKey.cargo_message).format(
           time(fireDate, TimestampStyles.RelativeTime)
         ),
-        translation(locale).cargo_footer,
+        t(TranslationKey.cargo_footer),
         discordChannel,
         channel.roleId,
         channel.autoDelete ? toMilliseconds(3) : 0

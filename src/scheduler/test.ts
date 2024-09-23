@@ -1,9 +1,8 @@
 import { yellow } from "colors/safe";
-import { Client, time, TimestampStyles } from "discord.js";
-import { Op } from "sequelize";
+import { Client, Locale, time, TimestampStyles } from "discord.js";
 import { Schedule } from "./schedule";
 import { CrateChannel } from "../db/models/CrateChannel";
-import { translation } from "../language";
+import { changeLanguage, t, TranslationKey } from "../locales";
 import { utils } from "../utils";
 import { PermissionError, PermissionErrorType } from "../utils/discord";
 import { logError, logInfo } from "../utils/logger";
@@ -17,15 +16,16 @@ export class Test extends Schedule {
     );
     fireDate.setMinutes(0, 0, 0);
     const channels = await CrateChannel.findAll();
-    channels.forEach((channel) => {
+    channels.forEach(async (channel) => {
       const discordChannel = client.channels.cache.get(channel.channelId);
       const locale = utils.discord.getPreferredLocale(discordChannel);
+      await changeLanguage(Locale.PortugueseBR);
       const result = utils.discord.sendScheduledEmbed(
-        translation(locale).crate_title,
-        translation(locale).crate_message.format(
+        t(TranslationKey.crate_title),
+        t(TranslationKey.crate_message).format(
           time(fireDate, TimestampStyles.ShortTime)
         ),
-        translation(locale).crate_footer,
+        t(TranslationKey.crate_footer),
         discordChannel,
         channel.roleId,
         channel.autoDelete ? 30000 : 0

@@ -6,7 +6,7 @@ import {
   TimestampStyles,
 } from "discord.js";
 import { Job } from "node-schedule";
-import { translation } from "../language";
+import { changeLanguage, t, TranslationKey } from "../locales";
 import { jobs } from "../scheduler";
 import { utils } from "../utils";
 import { logInfo } from "../utils/logger";
@@ -26,6 +26,7 @@ export async function execute(interaction: CommandInteraction) {
   await interaction.deferReply({ ephemeral: true });
 
   const locale = utils.discord.getPreferredLocale(interaction.channel!);
+  await changeLanguage(locale);
 
   const now = new Date();
   const crateJob = jobs.get(allCommands.crate.name) as Job;
@@ -36,7 +37,7 @@ export async function execute(interaction: CommandInteraction) {
   const nextCargo = new Date(Math.min.apply(null, nextCargoDates));
 
   await interaction.followUp({
-    content: translation(locale).next_respawns_message.format(
+    content: t(TranslationKey.next_respawns_message).format(
       now.getUTCHours().toString().padStart(2, "0"),
       now.getUTCMinutes().toString().padStart(2, "0"),
       time(nextCrate, TimestampStyles.LongDateTime),

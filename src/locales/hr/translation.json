@@ -1,0 +1,23 @@
+{
+  "info_crate_value": "Kanal: {0}\nUloga: {1}\nAutomatsko brisanje: **{2}**\nIsključuje zvuk: **{3}**",
+  "setup_cargo_success": "Vaš izlazni kanal upozorenja o šifriranju tereta postavljen je na {0}!\nUloga koja će biti spomenuta je {1}.\n**{2}** automatsko brisanje prethodnih upozorenja o pojavljivanju Cargo Scramblea.\n-# Ako ne dobijete upozorenje kada ga očekujete, pridružite se poslužitelju za podršku i javite mi.",
+  "cargo_footer": "Idemo PvP!!!",
+  "info_crate_title": "Postavljanje sanduka",
+  "info_footer": "Ako želite ukloniti sve svoje postavke, upišite {0}",
+  "info_cargo_title": "Postavljanje tereta",
+  "cargo_title": "Once Human Cargo Scramble Spawn",
+  "cargo_channel_alert_error": "[TERET] Robot ne može slati poruke/vidjeti kanal na kanalu koji ste odabrali za upozorenja o pojavljivanju tereta, {0}.\nUredite postavke kanala desnim klikom na naziv kanala i provjerite ima li bot ili njegova uloga Pregled kanala, Pošalji poruke i Ugradi veze postavljene na ✅ (zelena kvačica) i pokušajte ponovo.\n-# Ako trebate pomoć, pridružite se poslužitelju za podršku.",
+  "crate_channel_alert_error": "[SANDUJ] Robot ne može slati poruke/vidjeti kanal na kanalu koji ste odabrali za upozorenja o ponovnom pojavljivanju sanduka s oružjem/opremom, {0}.\nUredite postavke kanala desnim klikom na naziv kanala i provjerite ima li bot ili njegova uloga Pregled kanala, Pošalji poruke i Ugradi veze postavljene na ✅ (zelena kvačica) i pokušajte ponovo.\n-# Ako trebate pomoć, pridružite se poslužitelju za podršku.",
+  "crate_title": "Nakon resetiranja ljudske opreme/sanduka s oružjem",
+  "setup_cargo_channel_ping": "{0}, ovaj kanal je mjesto na koje će se slati upozorenja o problemu tereta!",
+  "crate_footer": "Odjavite se na glavni izbornik i ponovno se prijavite da biste vidjeli resetirane škrinje.",
+  "info_title": "Info",
+  "next_respawns_message": "Sada je {0}:{1} UTC.\nSanduki se ponovno pojavljuju u 00:00 UTC i svaka 4 sata nakon toga.\nCargo Scramble se pojavljuje u 12:00, 15:00, 18:30 i 22:00 UTC.\n\nSljedeće ponovno pojavljivanje sanduka: {2} ili ~{3}.\nSljedeći Cargo Scramble: {4} ili ~{5}.",
+  "info_message": "{0} {1} {2} {3}\n{4} {5} {6} {7}",
+  "info_cargo_value": "Kanal: {0}\nUloga: {1}\nAutomatsko brisanje: **{2}**\nIsključuje zvuk: **{3}**",
+  "check_channel_type_error": "Ovaj bot podržava samo kanale za tekst/najave.\nPonovo {0} svoj kanal.",
+  "cargo_message": "Cargo scramble događaj ima priliku iznjedriti {0}!",
+  "setup_crate_success": "Vaš izlazni kanal upozorenja o sanduku postavljen je na {0}!\nUloga koja će biti spomenuta je {1}.\n**{2}** automatsko brisanje prethodnih upozorenja o ponovnom pojavljivanju sanduka s oružjem/opremom.\n-# Ako ne dobijete upozorenje kada ga očekujete, pridružite se poslužitelju za podršku i javite mi.",
+  "crate_message": "Ovo je najava za poništavanje {0}.",
+  "setup_crate_channel_ping": "{0}, ovaj kanal je mjesto na koje će se slati upozorenja o ponovnom pojavljivanju sanduka s oružjem/opremom!"
+}
