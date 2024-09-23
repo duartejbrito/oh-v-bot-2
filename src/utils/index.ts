@@ -34,6 +34,10 @@ export function getSelectMenuOptionsByRule(name: string) {
 export const toMilliseconds = (hrs: number, min = 0, sec = 0) =>
   (hrs * 60 * 60 + min * 60 + sec) * 1000;
 
+export function convertToIso6391(language: string) {
+  return language.split("-")[0] === "zh" ? language : language.split("-")[0];
+}
+
 export const utils = {
   discord,
   logger,

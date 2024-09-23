@@ -1,12 +1,9 @@
 import translate from "@iamtraction/google-translate";
 import * as fs from "fs";
 import * as path from "path";
+import { convertToIso6391 } from "../utils";
 import { logInfo } from "../utils/logger";
 import { supportedLngs, translations } from ".";
-
-function convertToIso6391(language: string) {
-  return language.split("-")[0] === "zh" ? language : language.split("-")[0];
-}
 
 function writeJsonToFile(filePath: string, data: { [key: string]: string }) {
   const absolutePath = path.resolve(filePath);

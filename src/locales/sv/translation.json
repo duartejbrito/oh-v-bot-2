@@ -1,0 +1,23 @@
+{
+  "info_title": "Info",
+  "setup_cargo_channel_ping": "{0}, den här kanalen är dit varningar om lastscramble kommer att skickas!",
+  "info_crate_title": "Inställning av låda",
+  "cargo_channel_alert_error": "[CARGO] Boten kan inte skicka meddelanden/visa kanalen i den kanal du har valt för varningar om cargo scramble spawn, {0}.\nVänligen redigera kanalinställningarna genom att högerklicka på kanalnamnet och se till att boten eller dess roll har Visa kanal, Skicka meddelanden och Bädda in länkar inställda på ✅ (grön bock) och försök igen.\n-# Om du behöver hjälp, gå med i supportservern.",
+  "crate_channel_alert_error": "[CRATE] Boten kan inte skicka meddelanden/visa kanalen i den kanal du har valt för varningar om vapen/redskap, {0}.\nVänligen redigera kanalinställningarna genom att högerklicka på kanalnamnet och se till att boten eller dess roll har Visa kanal, Skicka meddelanden och Bädda in länkar inställda på ✅ (grön bock) och försök igen.\n-# Om du behöver hjälp, gå med i supportservern.",
+  "cargo_footer": "Låt oss gå PvP!!!",
+  "setup_cargo_success": "Din utgångskanal för lastkrypteringsvarningar har ställts in på {0}!\nRollen som kommer att nämnas är {1}.\n**{2}** automatisk radering av tidigare Cargo Scramble spawn-varningar.\n-# Om du inte får en varning när du förväntar dig det, gå med i supportservern och låt mig veta.",
+  "cargo_title": "Once Human Cargo Scramble Spawn",
+  "crate_message": "Detta är återställningsmeddelandet för {0}.",
+  "check_channel_type_error": "Denna bot stöder endast text-/meddelandekanaler.\nVänligen {0} din kanal igen.",
+  "crate_title": "En gång återställda mänskliga redskap/vapenlådor",
+  "setup_crate_success": "Din utgångskanal för lådavarningar har ställts in på {0}!\nRollen som kommer att nämnas är {1}.\n**{2}** automatisk borttagning av tidigare varningar om vapen/växellåda återupprättat.\n-# Om du inte får en varning när du förväntar dig det, gå med i supportservern och låt mig veta.",
+  "next_respawns_message": "Det är {0}:{1} UTC.\nLådorna återuppstår kl. 00:00 UTC och var fjärde timme efter.\nCargo Scramble gynnar klockan 12:00, 15:00, 18:30 och 22:00 UTC.\n\nNästa återuppbyggnad av lådan: {2} eller ~{3}.\nNästa Cargo Scramble: {4} eller ~{5}.",
+  "info_footer": "Om du vill ta bort alla dina inställningar skriver du {0}",
+  "info_crate_value": "Kanal: {0}\nRoll: {1}\nAutomatisk radering: **{2}**\nTyst: **{3}**",
+  "cargo_message": "Cargo Scramble-evenemanget har en chans att skapa {0}!",
+  "info_message": "{0} {1} {2} {3}\n{4} {5} {6} {7}",
+  "crate_footer": "Logga ut till huvudmenyn och logga in igen för att se de återställda kistorna.",
+  "setup_crate_channel_ping": "{0}, den här kanalen är dit varningar om återuppbyggnad av vapen/redskap skickas!",
+  "info_cargo_title": "Lastuppställning",
+  "info_cargo_value": "Kanal: {0}\nRoll: {1}\nAutomatisk radering: **{2}**\nTyst: **{3}**"
+}

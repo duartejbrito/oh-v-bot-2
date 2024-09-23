@@ -1,0 +1,23 @@
+{
+  "cargo_footer": "Vamos de PvP!!!",
+  "crate_message": "Este é o anúncio de redefinição de {0}.",
+  "setup_cargo_channel_ping": "{0}, este canal é para onde os alertas de embaralhamento de carga serão enviados!",
+  "info_message": "{0} {1} {2} {3}\n{4} {5} {6} {7}",
+  "setup_cargo_success": "Seu canal de saída de alertas de embaralhamento de carga foi definido como {0}!\nA função que será mencionada é {1}.\n**{2}** exclusão automática de alertas de spawn anteriores do Cargo Scramble.\n-# Se você não receber um alerta quando esperado, entre no servidor de suporte e me avise.",
+  "cargo_title": "Assim que a corrida de carga humana surgir",
+  "cargo_message": "O evento de corrida de carga tem chance de gerar {0}!",
+  "info_title": "Informações",
+  "info_cargo_title": "Configuração de carga",
+  "crate_channel_alert_error": "[CRATE] O bot não consegue enviar mensagens/visualizar o canal no canal que você escolheu para alertas de reaparecimento de caixas de armas/equipamentos, {0}.\nEdite as configurações do canal clicando com o botão direito no nome do canal e certifique-se de que o bot ou sua função tenha Visualizar canal, Enviar mensagens e Incorporar links definidos como ✅ (marca verde) e tente novamente.\n-# Se precisar de ajuda, entre no servidor de suporte.",
+  "setup_crate_channel_ping": "{0}, este canal é para onde os alertas de reaparecimento de caixas de armas/equipamentos serão enviados!",
+  "check_channel_type_error": "Este bot oferece suporte apenas a canais de texto/anúncio.\nPor favor, {0} seu canal novamente.",
+  "info_footer": "Se você quiser remover todas as suas configurações, digite {0}",
+  "next_respawns_message": "São {0}:{1} UTC.\nAs caixas reaparecem às 00:00 UTC e a cada 4 horas depois.\nCargo Scramble surge às 12h, 15h, 18h30 e 22h UTC.\n\nPróximo reaparecimento da caixa: {2} ou ~{3}.\nPróximo Embaralhamento de Carga: {4} ou ~{5}.",
+  "info_crate_title": "Configuração da caixa",
+  "setup_crate_success": "Seu canal de saída de alertas de caixa foi definido como {0}!\nA função que será mencionada é {1}.\n**{2}** exclusão automática de alertas anteriores de reaparecimento de caixas de armas/equipamentos.\n-# Se você não receber um alerta quando esperado, entre no servidor de suporte e me avise.",
+  "crate_title": "Assim que as caixas de equipamentos/armas humanas forem redefinidas",
+  "crate_footer": "Saia do menu principal e faça login novamente para ver os baús redefinidos.",
+  "cargo_channel_alert_error": "[CARGO] O bot não consegue enviar mensagens/visualizar o canal no canal que você escolheu para alertas de spawn de embaralhamento de carga, {0}.\nEdite as configurações do canal clicando com o botão direito no nome do canal e certifique-se de que o bot ou sua função tenha Visualizar canal, Enviar mensagens e Incorporar links definidos como ✅ (marca verde) e tente novamente.\n-# Se precisar de ajuda, entre no servidor de suporte.",
+  "info_crate_value": "Canal: {0}\nFunção: {1}\nExclusão automática: **{2}**\nSilenciar: **{3}**",
+  "info_cargo_value": "Canal: {0}\nFunção: {1}\nExclusão automática: **{2}**\nSilenciar: **{3}**"
+}

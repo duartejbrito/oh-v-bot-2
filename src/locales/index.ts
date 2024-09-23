@@ -2,6 +2,7 @@ import { Locale } from "discord.js";
 import i18next from "i18next";
 import Backend from "i18next-fs-backend";
 import { config } from "../config";
+import { convertToIso6391 } from "../utils";
 
 export const translations = {
   check_channel_type_error:
@@ -38,11 +39,14 @@ export const translations = {
   info_footer: "If you want to remove all your settings, type {0}",
 };
 
-export const supportedLngs = Object.values(Locale);
+export const supportedLngs = [
+  ...new Set(Object.values(Locale).map(convertToIso6391)),
+];
 
 i18next.use(Backend).init({
-  lng: Locale.EnglishUS, // if you're using a language detector, do not define the lng option
+  lng: "en", // if you're using a language detector, do not define the lng option
   supportedLngs,
+  fallbackLng: "en",
   debug: config.I18N_LOGGING,
   saveMissing: true,
   backend: {
@@ -50,8 +54,6 @@ i18next.use(Backend).init({
     addPath: "./src/locales/{{lng}}/{{ns}}.missing.json",
   },
 });
-
-export { changeLanguage } from "i18next";
 
 export enum TranslationKey {
   /* eslint-disable no-unused-vars */
@@ -77,6 +79,10 @@ export enum TranslationKey {
   info_cargo_value = "info_cargo_value",
   info_footer = "info_footer",
   /* eslint-enable no-unused-vars */
+}
+
+export function changeLanguage(locale: Locale) {
+  i18next.changeLanguage(convertToIso6391(locale));
 }
 
 export function t(key: TranslationKey): string {
