@@ -39,6 +39,8 @@
 
 The V - Once Human Discord Bot is a versatile tool designed to manage and provide alerts for crate and cargo events in the Once Human game. It features commands for setting up notification channels, roles, and auto-delete options, ensuring players stay informed about important in-game events.
 
+To add bot click [here](https://discord.com/oauth2/authorize?client_id=1284580273626943661&scope=applications.commands%20bot)
+
 ## 📢 Commands for Managing Notification Channels
 
 The available commands for managing notification channels in the V - Once Human Discord Bot are:
