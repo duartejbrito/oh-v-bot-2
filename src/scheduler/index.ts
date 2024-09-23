@@ -97,7 +97,7 @@ function scheduleJob(
 const schedules = {
   Crate,
   Cargo,
-  Test,
+  // Test,
 };
 
 const tz = "Etc/UTC";
