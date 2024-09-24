@@ -24,8 +24,8 @@ export const translations = {
   setup_cargo_success:
     "Your cargo scramble alerts output channel has been set to {0}!\nThe role that will be mentioned is {1}.\n**{2}** automatic delete of previous Cargo Scramble spawn alerts.\n-# If you do not get an alert when you expect it, please join the support server and let me know.",
   cargo_title: "Once Human Cargo Scramble Spawn",
-  cargo_message: "The cargo scramble event has a chance to spawn {0}!",
-  cargo_footer: "Let's go PvP!!!",
+  cargo_message: "The cargo scramble event had a chance to spawn {0}!",
+  cargo_footer: "Let's go PvP!!! Thanks <@110345166048464896> for the alert!",
   next_respawns_message:
     "It is {0}:{1} UTC.\nCrates respawn at 00:00 UTC and every 4 hours after.\nCargo Scramble spawns at 12:00, 15:00, 18:30, and 22:00 UTC.\n\nNext crate respawn:\t\t{2} or ~{3}.\nNext Cargo Scramble:\t{4} or ~{5}.",
   info_message: "{0} {1} {2} {3}\n{4} {5} {6} {7}",
