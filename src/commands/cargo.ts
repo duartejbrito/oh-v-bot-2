@@ -1,22 +1,19 @@
 import {
   ActionRowBuilder,
-  AnySelectMenuInteraction,
   CommandInteraction,
   CommandInteractionOptionResolver,
   InteractionContextType,
+  MessageComponentInteraction,
   PermissionFlagsBits,
   SendableChannels,
   SlashCommandBuilder,
   StringSelectMenuBuilder,
+  StringSelectMenuInteraction,
   StringSelectMenuOptionBuilder,
 } from "discord.js";
 import { CargoChannel } from "../db/models/CargoChannel";
 import { changeLanguage, t, TranslationKey } from "../locales";
-import {
-  getSelectMenuCommandName,
-  getSelectMenuOptionsByRule,
-  utils,
-} from "../utils";
+import { getSelectMenuOptionsByRule, utils } from "../utils";
 import { logInfo } from "../utils/logger";
 
 export const name = "cargo";
@@ -89,14 +86,26 @@ async function setupCargoChannel(interaction: CommandInteraction) {
   const role = options.getRole("role");
   const autoDelete = options.getBoolean("auto-delete")?.valueOf();
 
-  await CargoChannel.destroy({ where: { guildId: guildId } });
-  await CargoChannel.create({
-    guildId,
-    channelId,
-    roleId: role?.id,
-    addedBy: interaction.user.id,
-    autoDelete: autoDelete || false,
-  } as CargoChannel);
+  await CargoChannel.findOrCreate({
+    where: { guildId: guildId },
+    defaults: {
+      guildId,
+      channelId,
+      roleId: role?.id,
+      addedBy: interaction.user.id,
+      autoDelete: autoDelete || false,
+      mute: [],
+    },
+  }).then(async ([channel, created]) => {
+    if (!created) {
+      channel.channelId = channelId;
+      channel.roleId = role?.id;
+      channel.addedBy = interaction.user.id;
+      channel.autoDelete = autoDelete || false;
+
+      await channel.save();
+    }
+  });
 
   await (discordChannel as SendableChannels).send({
     content: t(TranslationKey.setup_cargo_channel_ping).format(
@@ -120,14 +129,50 @@ async function setupCargoChannel(interaction: CommandInteraction) {
     selectMenu
   );
 
-  await interaction.followUp({
+  const message = await interaction.editReply({
     content: t(TranslationKey.setup_cargo_success).format(
       discordChannel.toString(),
       role ? role.toString() : "None",
       autoDelete ? "Enable" : "Disable"
     ),
-    ephemeral: true,
     components: [row],
+  });
+
+  const filter = (i: MessageComponentInteraction) =>
+    i.user.id === interaction.user.id;
+  const collector = message.createMessageComponentCollector({
+    filter,
+    time: 15000,
+  });
+
+  collector?.on("collect", async (i: StringSelectMenuInteraction) => {
+    if (i.customId === `${name}-mute-hours`) {
+      logInfo("Cargo command mute-hours executed");
+      const mutes = i.values.map((value) => value);
+      await CargoChannel.update(
+        { mute: mutes },
+        { where: { guildId: interaction.guildId! } }
+      );
+      const mutesLabels = getSelectMenuOptionsByRule(name)
+        .filter(([key]) => mutes.includes(key))
+        // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+        .map(([_, value]) => value);
+      await i.update({
+        content: `${message.content}\nMute hours updated to ${mutesLabels.join(
+          ", "
+        )}`,
+        components: [],
+      });
+    }
+  });
+
+  collector?.on("end", async (collected) => {
+    if (collected.size === 0) {
+      await interaction.editReply({
+        content: `${message.content}\nMute hours not updated.`,
+        components: [],
+      });
+    }
   });
 }
 
@@ -137,31 +182,5 @@ export async function execute(interaction: CommandInteraction) {
 
   if (options.getSubcommand() === "setup") {
     await setupCargoChannel(interaction);
-  }
-}
-
-export async function executeSelectMenu(interaction: AnySelectMenuInteraction) {
-  logInfo("Cargo command select menu executed");
-  const selectMenuCommandName = getSelectMenuCommandName(interaction.customId);
-
-  if (selectMenuCommandName === "mute-hours") {
-    logInfo("Cargo command mute-hours executed");
-    const mutes = interaction.values.map((value) => value);
-    await CargoChannel.update(
-      { mute: mutes },
-      { where: { guildId: interaction.guildId! } }
-    );
-
-    const mutesLabels = getSelectMenuOptionsByRule(name)
-      .filter(([key]) => mutes.includes(key))
-      // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-      .map(([_, value]) => value);
-
-    await interaction.update({
-      content: `${
-        interaction.message.content
-      }\nMute hours updated to ${mutesLabels.join(", ")}`,
-      components: [],
-    });
   }
 }

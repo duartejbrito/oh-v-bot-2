@@ -25,11 +25,6 @@ export const commands = {
   cargo,
 };
 
-export const selectMenusCommands = {
-  crate,
-  cargo,
-};
-
 export const ownerCommands = {
   deploy,
 };
@@ -43,9 +38,5 @@ export const commandsData = Object.values(commands).map(
 );
 
 export const ownerCommandsData = Object.values(ownerCommands).map(
-  (command) => command.data
-);
-
-export const selectMenusCommandsData = Object.values(selectMenusCommands).map(
   (command) => command.data
 );
