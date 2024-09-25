@@ -8,7 +8,7 @@ import {
   InteractionContextType,
   PermissionFlagsBits,
 } from "discord.js";
-import { utils } from "../utils";
+import { AutoDeleteMessage, CargoChannel, CrateChannel } from "../db/models";
 import { logInfo } from "../utils/logger";
 
 export const name = "remove";
@@ -22,8 +22,6 @@ export const data = new SlashCommandBuilder()
 export async function execute(interaction: CommandInteraction) {
   logInfo("Remove command executed");
   await interaction.deferReply({ ephemeral: true });
-
-  const locale = utils.discord.getPreferredLocale(interaction.channel!);
 
   const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
     new ButtonBuilder()
@@ -50,8 +48,19 @@ export async function execute(interaction: CommandInteraction) {
 
   collector?.on("collect", async (i: MessageComponentInteraction) => {
     if (i.customId === "remove") {
-      await i.update({ content: "Data removed!", components: [] });
-      // Place the code to remove the data here
+      const deletedCargos = await CargoChannel.destroy({
+        where: { guildId: i.guildId! },
+      });
+      const deletedCrates = await CrateChannel.destroy({
+        where: { guildId: i.guildId! },
+      });
+      const deletedAutoDelete = await AutoDeleteMessage.destroy({
+        where: { guildId: i.guildId! },
+      });
+      await i.update({
+        content: `Data removed!\nCrate Setup: ${deletedCrates}\nCargo Setup: ${deletedCargos}\nAuto delete messages: ${deletedAutoDelete}`,
+        components: [],
+      });
     } else if (i.customId === "cancel") {
       await i.update({ content: "Data removal canceled.", components: [] });
     }
