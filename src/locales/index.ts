@@ -25,10 +25,9 @@ export const translations = {
     "Your cargo scramble alerts output channel has been set to {0}!\nThe role that will be mentioned is {1}.\n**{2}** automatic delete of previous Cargo Scramble spawn alerts.\n-# If you do not get an alert when you expect it, please join the support server and let me know.",
   cargo_title: "Once Human Cargo Scramble Spawn",
   cargo_message: "The cargo scramble event had a chance to spawn {0}!",
-  cargo_footer: "Let's go PvP!!! Thanks <@110345166048464896> for the alert!",
+  cargo_footer: "Let's go PvP!!! Thanks blixmix for the alert! 🤣",
   next_respawns_message:
     "It is {0}:{1} UTC.\nCrates respawn at 00:00 UTC and every 4 hours after.\nCargo Scramble spawns at 12:00, 15:00, 18:30, and 22:00 UTC.\n\nNext crate respawn:\t\t{2} or ~{3}.\nNext Cargo Scramble:\t{4} or ~{5}.",
-  info_message: "{0} {1} {2} {3}\n{4} {5} {6} {7}",
   info_title: "Info",
   info_crate_title: "Crate Setup",
   info_crate_value:
@@ -71,7 +70,6 @@ export enum TranslationKey {
   cargo_message = "cargo_message",
   cargo_footer = "cargo_footer",
   next_respawns_message = "next_respawns_message",
-  info_message = "info_message",
   info_title = "info_title",
   info_crate_title = "info_crate_title",
   info_crate_value = "info_crate_value",
