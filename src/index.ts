@@ -1,4 +1,3 @@
-import { green } from "colors/safe";
 import { Client, Events, GatewayIntentBits } from "discord.js";
 import { allCommands } from "./commands";
 import { config } from "./config";
@@ -7,14 +6,18 @@ import { initModels } from "./db/models";
 import { deployCommands, deployGuildCommands } from "./deploy-commands";
 import { scheduleJobs } from "./scheduler";
 import { handleDanglingMessages } from "./utils/discord";
-import { logInfo, logError } from "./utils/logger";
+import { logInfo, logError, initLogger } from "./utils/logger";
 
 export const client = new Client({
   intents: [GatewayIntentBits.Guilds],
 });
 
 client.once(Events.ClientReady, async () => {
-  logInfo(`Discord bot is ready! 🤖 ${green(client.user!.tag)}`);
+  initLogger();
+  logInfo("Discord bot is ready! 🤖", {
+    DisplayName: client.user!.displayName,
+    Tag: client.user!.tag,
+  });
   await initModels(db);
   await handleDanglingMessages(client);
   scheduleJobs(client);

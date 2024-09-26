@@ -2,7 +2,7 @@ import translate from "@iamtraction/google-translate";
 import * as fs from "fs";
 import * as path from "path";
 import { convertToIso6391 } from "../utils";
-import { logInfo } from "../utils/logger";
+import { logDebug } from "../utils/logger";
 import { supportedLngs, translations } from ".";
 
 function writeJsonToFile(filePath: string, data: { [key: string]: string }) {
@@ -26,7 +26,7 @@ function writeJsonToFile(filePath: string, data: { [key: string]: string }) {
 
 (async () => {
   supportedLngs.map(async (language) => {
-    logInfo(`Translating to ${language}...`);
+    logDebug("Translating...", { Language: language });
     const translatedPhrases: { [key: string]: string } = {};
 
     await Promise.all(
@@ -47,6 +47,9 @@ function writeJsonToFile(filePath: string, data: { [key: string]: string }) {
 
     const outputFilePath = `src/locales/${language}/translation.json`;
     writeJsonToFile(outputFilePath, translatedPhrases);
-    logInfo(`Translation for ${language} saved to ${outputFilePath}`);
+    logDebug("Translated!!!", {
+      Language: language,
+      OutputFilePath: outputFilePath,
+    });
   });
 })();

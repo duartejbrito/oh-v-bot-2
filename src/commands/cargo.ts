@@ -14,6 +14,7 @@ import {
 import { CargoChannel } from "../db/models/CargoChannel";
 import { changeLanguage, t, TranslationKey } from "../locales";
 import { getSelectMenuOptionsByRule, utils } from "../utils";
+import { PermissionErrorType } from "../utils/discord";
 import { logInfo } from "../utils/logger";
 
 export const name = "cargo";
@@ -52,7 +53,6 @@ export const data = new SlashCommandBuilder()
   );
 
 async function setupCargoChannel(interaction: CommandInteraction) {
-  logInfo("Cargo command setup executed");
   await interaction.deferReply({ ephemeral: true });
 
   const options = interaction.options as CommandInteractionOptionResolver;
@@ -76,6 +76,12 @@ async function setupCargoChannel(interaction: CommandInteraction) {
         : t(TranslationKey.cargo_channel_alert_error).format(
             discordChannel.toString()
           );
+
+    logInfo(`${name} command setup executed no permissions`, {
+      GuildId: guildId,
+      ChannelId: channelId,
+      Error: PermissionErrorType[checkPermission.type],
+    });
 
     return await interaction.followUp({
       content,
@@ -113,6 +119,13 @@ async function setupCargoChannel(interaction: CommandInteraction) {
     ),
   });
 
+  logInfo(`${name} command setup executed`, {
+    GuildId: guildId,
+    ChannelId: channelId,
+    RoleId: role?.id,
+    AutoDelete: autoDelete,
+  });
+
   const selectMenuOptions = getSelectMenuOptionsByRule(name).map(
     ([key, value]) =>
       new StringSelectMenuOptionBuilder().setLabel(value).setValue(key)
@@ -147,7 +160,6 @@ async function setupCargoChannel(interaction: CommandInteraction) {
 
   collector?.on("collect", async (i: StringSelectMenuInteraction) => {
     if (i.customId === `${name}-mute-hours`) {
-      logInfo("Cargo command mute-hours executed");
       const mutes = i.values.map((value) => value);
       await CargoChannel.update(
         { mute: mutes },
@@ -163,6 +175,10 @@ async function setupCargoChannel(interaction: CommandInteraction) {
         )}`,
         components: [],
       });
+      logInfo(`${name} command mute-hours executed`, {
+        GuildId: guildId,
+        Mutes: mutes.join(", "),
+      });
     }
   });
 
@@ -172,12 +188,14 @@ async function setupCargoChannel(interaction: CommandInteraction) {
         content: `${message.content}\nMute hours not updated.`,
         components: [],
       });
+      logInfo(`${name} command mute-hours executed and canceled`, {
+        GuildId: guildId,
+      });
     }
   });
 }
 
 export async function execute(interaction: CommandInteraction) {
-  logInfo("Cargo command executed");
   const options = interaction.options as CommandInteractionOptionResolver;
 
   if (options.getSubcommand() === "setup") {

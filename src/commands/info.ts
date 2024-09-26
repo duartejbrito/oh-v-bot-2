@@ -22,7 +22,6 @@ export const data = new SlashCommandBuilder()
   .setDefaultMemberPermissions(PermissionFlagsBits.Administrator);
 
 export async function execute(interaction: CommandInteraction) {
-  logInfo("Info command executed");
   await interaction.deferReply({ ephemeral: true });
 
   const guildId = interaction.guildId!;
@@ -86,4 +85,6 @@ export async function execute(interaction: CommandInteraction) {
   await interaction.followUp({
     embeds: [embed],
   });
+
+  logInfo("Info command executed", { GuildId: interaction.guildId! });
 }

@@ -79,8 +79,8 @@ export enum TranslationKey {
   /* eslint-enable no-unused-vars */
 }
 
-export function changeLanguage(locale: Locale) {
-  i18next.changeLanguage(convertToIso6391(locale));
+export async function changeLanguage(locale: Locale) {
+  await i18next.changeLanguage(convertToIso6391(locale));
 }
 
 export function t(key: TranslationKey): string {

@@ -1,4 +1,3 @@
-import { yellow } from "colors";
 import { Client, time, TimestampStyles } from "discord.js";
 import { Op } from "sequelize";
 import { Schedule } from "./schedule";
@@ -6,17 +5,12 @@ import { CrateChannel } from "../db/models/CrateChannel";
 import { changeLanguage, t, TranslationKey } from "../locales";
 import { toMilliseconds, utils } from "../utils";
 import { PermissionError, PermissionErrorType } from "../utils/discord";
-import { logError, logInfo, logInfoTemplate } from "../utils/logger";
+import { logError, logInfo } from "../utils/logger";
 
 export class Crate extends Schedule {
   static rule = ["0 */4 * * *"];
   static deltaMinutes = 0;
   static override callback = async (client: Client, fireDate: Date) => {
-    logInfo(
-      `Job ${yellow(Crate.name.toUpperCase())} executed at ${yellow(
-        fireDate.toISOString()
-      )}`
-    );
     fireDate.setMinutes(0, 0, 0);
 
     const channels = await CrateChannel.findAll({
@@ -31,7 +25,10 @@ export class Crate extends Schedule {
       },
     });
 
-    logInfoTemplate("Channels found: {0}", channels.length.toString());
+    logInfo(`${Crate.name} job executing...`, {
+      FireDate: time(fireDate, TimestampStyles.ShortDateTime),
+      Channels: channels.length.toString(),
+    });
 
     channels.forEach(async (channel) => {
       const discordChannel = client.channels.cache.get(channel.channelId);
@@ -50,14 +47,19 @@ export class Crate extends Schedule {
 
       if (result instanceof PermissionError) {
         logError(PermissionErrorType[result.type]);
-        CrateChannel.destroy({ where: { channelId: channel.channelId } });
-        logInfo(`Channel ${yellow(channel.channelId)} removed from database.`);
+        await CrateChannel.destroy({ where: { channelId: channel.channelId } });
+        logInfo("Channel removed from database.", {
+          JobName: Crate.name,
+          Error: PermissionErrorType[result.type],
+          ChannelId: channel.channelId,
+        });
       } else {
-        logInfo(
-          `Message sent to channel ${yellow(
-            channel.channelId
-          )} with role ${yellow(channel.roleId?.toString() || "none")}`
-        );
+        logInfo("Message sent.", {
+          JobName: Crate.name,
+          ChannelId: channel.channelId,
+          Role: channel.roleId?.toString() || "none",
+          AutoDelete: `\`${channel.autoDelete}\``,
+        });
       }
     });
   };

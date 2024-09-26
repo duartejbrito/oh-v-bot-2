@@ -1,4 +1,3 @@
-import { yellow } from "colors/safe";
 import { Client, time, TimestampStyles } from "discord.js";
 import { Schedule } from "./schedule";
 import { CrateChannel } from "../db/models/CrateChannel";
@@ -11,9 +10,7 @@ export class Test extends Schedule {
   static rule = ["* * * * *"];
   static deltaMinutes = 0;
   static override callback = async (client: Client, fireDate: Date) => {
-    logInfo(
-      `Job ${yellow(Test.name)} executed at ${yellow(fireDate.toISOString())}`
-    );
+    logInfo(`Job ${Test.name} executed at ${fireDate.toISOString()}`);
     fireDate.setMinutes(0, 0, 0);
     const channels = await CrateChannel.findAll();
     channels.forEach(async (channel) => {
@@ -33,8 +30,8 @@ export class Test extends Schedule {
 
       if (result instanceof PermissionError) {
         logError(PermissionErrorType[result.type]);
-        CrateChannel.destroy({ where: { channelId: channel.channelId } });
-        logInfo(`Channel ${yellow(channel.channelId)} removed from database.`);
+        await CrateChannel.destroy({ where: { channelId: channel.channelId } });
+        logInfo(`Channel ${channel.channelId} removed from database.`);
       }
     });
   };

@@ -13,6 +13,6 @@ export const data = new SlashCommandBuilder()
   .setContexts([InteractionContextType.Guild]);
 
 export async function execute(interaction: CommandInteraction) {
-  logInfo("Ping command executed");
+  logInfo("Ping command executed", { GuildId: interaction.guildId! });
   return interaction.reply({ content: "Pong!", ephemeral: true });
 }

@@ -22,7 +22,6 @@ export const data = new SlashCommandBuilder()
   .setContexts([InteractionContextType.Guild]);
 
 export async function execute(interaction: CommandInteraction) {
-  logInfo("Next command executed");
   await interaction.deferReply({ ephemeral: true });
 
   const locale = utils.discord.getPreferredLocale(interaction.channel!);
@@ -46,4 +45,6 @@ export async function execute(interaction: CommandInteraction) {
       time(nextCargo, TimestampStyles.RelativeTime)
     ),
   });
+
+  logInfo("Next command executed", { GuildId: interaction.guildId! });
 }

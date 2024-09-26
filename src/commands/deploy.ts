@@ -18,7 +18,6 @@ export const data = new SlashCommandBuilder()
   .setDefaultMemberPermissions(PermissionFlagsBits.Administrator);
 
 export async function execute(interaction: CommandInteraction) {
-  logInfo("Deploy command executed");
   if (interaction.user.id !== config.OWNER_ID) {
     return await interaction.reply({
       content: "You do not have permission to use this command.",
@@ -39,4 +38,5 @@ export async function execute(interaction: CommandInteraction) {
       ephemeral: true,
     })
     .then(() => setTimeout(() => interaction.deleteReply(), 60000));
+  logInfo("Deploy command executed", { GuildId: interaction.guildId! });
 }

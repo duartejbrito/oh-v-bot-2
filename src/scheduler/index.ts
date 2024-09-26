@@ -1,6 +1,5 @@
-import { yellow } from "colors/safe";
 import { parseExpression } from "cron-parser";
-import { Client } from "discord.js";
+import { Client, time, TimestampStyles } from "discord.js";
 import * as schedule from "node-schedule";
 import { Cargo } from "./cargo";
 import { Crate } from "./crate";
@@ -54,12 +53,6 @@ export function extractRuleOptions(
   }
 
   extractCronOptions(jobName, rule as string, deltaMinutes);
-
-  logInfo(
-    `Rule options for ${yellow(jobName)}: ${JSON.stringify(
-      Array.from(rulesOptions.get(jobName)?.entries() || [])
-    )}`
-  );
 }
 
 function scheduleJob(
@@ -83,11 +76,15 @@ function scheduleJob(
       } else {
         jobs.set(jobName, job);
       }
-      logInfo(
-        `Job ${yellow(jobName.toUpperCase())} scheduled with rule ${yellow(
-          `[${rule}]`
-        )}, next invocation: ${yellow(job.nextInvocation().toISOString())}`
-      );
+
+      logInfo("Job scheduled", {
+        JobName: jobName,
+        Rule: `\`${rule}\``,
+        NextInvocation: time(
+          job.nextInvocation(),
+          TimestampStyles.RelativeTime
+        ),
+      });
     }
   } catch (error) {
     logError(`Error while scheduling job ${jobName}: ${error}`);

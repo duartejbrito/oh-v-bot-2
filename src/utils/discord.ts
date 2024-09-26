@@ -8,6 +8,7 @@ import {
   EmbedBuilder,
   GuildChannel,
   Locale,
+  Message,
   PermissionFlagsBits,
   SendableChannels,
 } from "discord.js";
@@ -139,6 +140,10 @@ export function mentionCommand(interaction: CommandInteraction) {
 export async function handleDanglingMessages(client: Client) {
   const autoDeleteMessages = await AutoDeleteMessage.findAll();
 
+  const deleted: Message[] = [];
+  const willDelete: Message[] = [];
+  const guildNotFound: AutoDeleteMessage[] = [];
+
   autoDeleteMessages.forEach(async (autoDeleteMessage) => {
     const guild = client.guilds.cache.get(autoDeleteMessage.guildId);
     if (guild) {
@@ -148,7 +153,6 @@ export async function handleDanglingMessages(client: Client) {
           const message = await (channel as SendableChannels).messages.fetch(
             autoDeleteMessage.messageId
           );
-          logInfo(`Found message ${message.id} in channel ${channel.id}`);
           if (message) {
             const currentTime = new Date();
             const deleteTime = message.createdAt.setTime(
@@ -160,6 +164,7 @@ export async function handleDanglingMessages(client: Client) {
               await AutoDeleteMessage.destroy({
                 where: { messageId: message.id },
               });
+              deleted.push(message);
             } else {
               setTimeout(async () => {
                 message.delete();
@@ -167,15 +172,28 @@ export async function handleDanglingMessages(client: Client) {
                   where: { messageId: message.id },
                 });
               }, deleteTime - currentTime.getTime());
+              willDelete.push(message);
             }
           }
         } catch (error) {
           logError(error as Error);
+
           await AutoDeleteMessage.destroy({
-            where: { messageId: autoDeleteMessage.messageId },
+            where: { messageId: [autoDeleteMessage.messageId] },
           });
         }
       }
+    } else {
+      await AutoDeleteMessage.destroy({
+        where: { messageId: [autoDeleteMessage.messageId] },
+      });
+      guildNotFound.push(autoDeleteMessage);
     }
+  });
+
+  logInfo("Dangling messages handled", {
+    Deleted: deleted.length,
+    WillDelete: willDelete.length,
+    GuildNotFound: guildNotFound.length,
   });
 }

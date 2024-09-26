@@ -1,4 +1,3 @@
-import { yellow } from "colors";
 import { Client, time, TimestampStyles } from "discord.js";
 import { Op } from "sequelize";
 import { Schedule } from "./schedule";
@@ -6,17 +5,12 @@ import { CargoChannel } from "../db/models/CargoChannel";
 import { changeLanguage, t, TranslationKey } from "../locales";
 import { toMilliseconds, utils } from "../utils";
 import { PermissionError, PermissionErrorType } from "../utils/discord";
-import { logError, logInfo, logInfoTemplate } from "../utils/logger";
+import { logError, logInfo } from "../utils/logger";
 
 export class Cargo extends Schedule {
   static rule = ["55 11,14,21 * * *", "25 18 * * *"];
   static deltaMinutes = 5;
   static override callback = async (client: Client, fireDate: Date) => {
-    logInfo(
-      `Job ${yellow(Cargo.name.toUpperCase())} executed at ${yellow(
-        fireDate.toISOString()
-      )}`
-    );
     fireDate.setSeconds(0, 0);
 
     const channels = await CargoChannel.findAll({
@@ -31,7 +25,10 @@ export class Cargo extends Schedule {
       },
     });
 
-    logInfoTemplate("Channels found: {0}", channels.length.toString());
+    logInfo(`${Cargo.name} job executing...`, {
+      FireDate: time(fireDate, TimestampStyles.ShortDateTime),
+      Channels: channels.length.toString(),
+    });
 
     channels.forEach(async (channel) => {
       const discordChannel = client.channels.cache.get(channel.channelId);
@@ -50,14 +47,19 @@ export class Cargo extends Schedule {
 
       if (result instanceof PermissionError) {
         logError(PermissionErrorType[result.type]);
-        CargoChannel.destroy({ where: { channelId: channel.channelId } });
-        logInfo(`Channel ${yellow(channel.channelId)} removed from database.`);
+        await CargoChannel.destroy({ where: { channelId: channel.channelId } });
+        logInfo("Channel removed from database.", {
+          JobName: Cargo.name,
+          Error: PermissionErrorType[result.type],
+          ChannelId: channel.channelId,
+        });
       } else {
-        logInfo(
-          `Message sent to channel ${yellow(
-            channel.channelId
-          )} with role ${yellow(channel.roleId?.toString() || "none")}`
-        );
+        logInfo("Message sent.", {
+          JobName: Cargo.name,
+          ChannelId: channel.channelId,
+          Role: channel.roleId?.toString() || "none",
+          AutoDelete: `\`${channel.autoDelete}\``,
+        });
       }
     });
   };

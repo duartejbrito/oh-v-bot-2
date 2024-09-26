@@ -20,7 +20,6 @@ export const data = new SlashCommandBuilder()
   .setDefaultMemberPermissions(PermissionFlagsBits.Administrator);
 
 export async function execute(interaction: CommandInteraction) {
-  logInfo("Remove command executed");
   await interaction.deferReply({ ephemeral: true });
 
   const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
@@ -61,8 +60,16 @@ export async function execute(interaction: CommandInteraction) {
         content: `Data removed!\nCrate Setup: ${deletedCrates}\nCargo Setup: ${deletedCargos}\nAuto delete messages: ${deletedAutoDelete}`,
         components: [],
       });
+      logInfo("Data removed.", {
+        GuildId: i.guildId!,
+        CrateSetups: deletedCrates,
+        CargoSetups: deletedCargos,
+        AutoDeletes: deletedAutoDelete,
+      });
     } else if (i.customId === "cancel") {
-      await i.update({ content: "Data removal canceled.", components: [] });
+      const content = "Data removal canceled.";
+      await i.update({ content, components: [] });
+      logInfo(content, { GuildId: i.guildId! });
     }
   });
 
@@ -72,6 +79,7 @@ export async function execute(interaction: CommandInteraction) {
         content: "No response, data removal canceled.",
         components: [],
       });
+      logInfo("Data removal canceled.", { GuildId: interaction.guildId! });
     }
   });
 }
