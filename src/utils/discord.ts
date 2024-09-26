@@ -8,7 +8,6 @@ import {
   EmbedBuilder,
   GuildChannel,
   Locale,
-  Message,
   PermissionFlagsBits,
   SendableChannels,
 } from "discord.js";
@@ -140,60 +139,45 @@ export function mentionCommand(interaction: CommandInteraction) {
 export async function handleDanglingMessages(client: Client) {
   const autoDeleteMessages = await AutoDeleteMessage.findAll();
 
-  const deleted: Message[] = [];
-  const willDelete: Message[] = [];
-  const guildNotFound: AutoDeleteMessage[] = [];
+  const currentTime = new Date();
 
-  autoDeleteMessages.forEach(async (autoDeleteMessage) => {
-    const guild = client.guilds.cache.get(autoDeleteMessage.guildId);
-    if (guild) {
-      const channel = guild.channels.cache.get(autoDeleteMessage.channelId);
-      if (channel) {
-        try {
-          const message = await (channel as SendableChannels).messages.fetch(
-            autoDeleteMessage.messageId
-          );
-          if (message) {
-            const currentTime = new Date();
-            const deleteTime = message.createdAt.setTime(
-              message.createdAt.getTime() + autoDeleteMessage.timeout
-            );
-
-            if (currentTime.getTime() > deleteTime) {
-              message.delete();
-              await AutoDeleteMessage.destroy({
-                where: { messageId: message.id },
-              });
-              deleted.push(message);
-            } else {
-              setTimeout(async () => {
-                message.delete();
-                await AutoDeleteMessage.destroy({
-                  where: { messageId: message.id },
-                });
-              }, deleteTime - currentTime.getTime());
-              willDelete.push(message);
-            }
-          }
-        } catch (error) {
-          logError(error as Error);
-
-          await AutoDeleteMessage.destroy({
-            where: { messageId: [autoDeleteMessage.messageId] },
-          });
-        }
-      }
-    } else {
-      await AutoDeleteMessage.destroy({
-        where: { messageId: [autoDeleteMessage.messageId] },
-      });
-      guildNotFound.push(autoDeleteMessage);
+  const toDelete = autoDeleteMessages.filter(
+    (msg) => currentTime.getTime() > msg.createdAt.getTime() + msg.timeout
+  );
+  const deletes = toDelete.map(async (msg) => {
+    try {
+      await (
+        client.guilds.cache
+          .get(msg.guildId)
+          ?.channels.cache.get(msg.channelId) as SendableChannels
+      )?.messages.delete(msg.messageId);
+    } catch (error) {
+      logError(error as Error);
     }
+  });
+  await Promise.all(deletes);
+  await AutoDeleteMessage.destroy({
+    where: { messageId: toDelete.map((msg) => msg.messageId) },
+  });
+
+  const toHandle = autoDeleteMessages.filter(
+    (msg) => !(currentTime.getTime() > msg.createdAt.getTime() + msg.timeout)
+  );
+  toHandle.forEach(async (msg) => {
+    setTimeout(async () => {
+      await (
+        client.guilds.cache
+          .get(msg.guildId)
+          ?.channels.cache.get(msg.channelId) as SendableChannels
+      )?.messages.delete(msg.messageId);
+      await AutoDeleteMessage.destroy({
+        where: { messageId: msg.messageId },
+      });
+    }, msg.createdAt.getTime() + msg.timeout - currentTime.getTime());
   });
 
   logInfo("Dangling messages handled", {
-    Deleted: deleted.length,
-    WillDelete: willDelete.length,
-    GuildNotFound: guildNotFound.length,
+    Deleted: toDelete.length,
+    WillDelete: toHandle.length,
   });
 }

@@ -10,9 +10,14 @@ export class Test extends Schedule {
   static rule = ["* * * * *"];
   static deltaMinutes = 0;
   static override callback = async (client: Client, fireDate: Date) => {
-    logInfo(`Job ${Test.name} executed at ${fireDate.toISOString()}`);
     fireDate.setMinutes(0, 0, 0);
     const channels = await CrateChannel.findAll();
+
+    logInfo(`${Test.name} job executing...`, {
+      FireDate: time(fireDate, TimestampStyles.ShortDateTime),
+      Channels: channels.length.toString(),
+    });
+
     channels.forEach(async (channel) => {
       const discordChannel = client.channels.cache.get(channel.channelId);
       const locale = utils.discord.getPreferredLocale(discordChannel);
@@ -31,7 +36,18 @@ export class Test extends Schedule {
       if (result instanceof PermissionError) {
         logError(PermissionErrorType[result.type]);
         await CrateChannel.destroy({ where: { channelId: channel.channelId } });
-        logInfo(`Channel ${channel.channelId} removed from database.`);
+        logInfo("Channel removed from database.", {
+          JobName: Test.name,
+          Error: PermissionErrorType[result.type],
+          ChannelId: channel.channelId,
+        });
+      } else {
+        logInfo("Message sent.", {
+          JobName: Test.name,
+          ChannelId: channel.channelId,
+          Role: channel.roleId?.toString() || "none",
+          AutoDelete: `\`${channel.autoDelete}\``,
+        });
       }
     });
   };
