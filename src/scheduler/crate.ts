@@ -1,6 +1,7 @@
-import { Client, time, TimestampStyles } from "discord.js";
+import { time, TimestampStyles } from "discord.js";
 import { Op } from "sequelize";
 import { Schedule } from "./schedule";
+import { client } from "..";
 import { CrateChannel } from "../db/models/CrateChannel";
 import { changeLanguage, t, TranslationKey } from "../locales";
 import { toMilliseconds, utils } from "../utils";
@@ -10,7 +11,7 @@ import { logError, logInfo } from "../utils/logger";
 export class Crate extends Schedule {
   static rule = ["0 */4 * * *"];
   static deltaMinutes = 0;
-  static override callback = async (client: Client, fireDate: Date) => {
+  static override callback = async (fireDate: Date) => {
     fireDate.setMinutes(0, 0, 0);
 
     const channels = await CrateChannel.findAll({
@@ -46,7 +47,10 @@ export class Crate extends Schedule {
       );
 
       if (result instanceof PermissionError) {
-        logError(PermissionErrorType[result.type]);
+        logError(PermissionErrorType[result.type], {
+          JobName: Crate.name,
+          ChannelId: channel.channelId,
+        });
         await CrateChannel.destroy({ where: { channelId: channel.channelId } });
         logInfo("Channel removed from database.", {
           JobName: Crate.name,

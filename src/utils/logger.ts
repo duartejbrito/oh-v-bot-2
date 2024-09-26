@@ -13,9 +13,11 @@ const { OWNER_LOG_CHANNEL_ID, DISCORD_LOGGING } = config;
 let logChannel: SendableChannels;
 
 export function initLogger() {
-  logChannel = client.channels.cache.get(
-    OWNER_LOG_CHANNEL_ID!
-  ) as SendableChannels;
+  if (client) {
+    logChannel = client.channels.cache.get(
+      OWNER_LOG_CHANNEL_ID!
+    ) as SendableChannels;
+  }
 }
 
 export enum Type {
@@ -27,11 +29,13 @@ export enum Type {
   /* eslint-enable no-unused-vars */
 }
 
-export async function logDiscord(
+async function logDiscord(
   message: string,
   args: Record<string, any> = {},
   color: ColorResolvable = Colors.Blue
 ): Promise<void> {
+  if (!logChannel) return;
+
   const embed = new EmbedBuilder();
   embed.setColor(color);
   embed.setTitle(message);
@@ -66,7 +70,7 @@ export async function logDiscord(
   await logMessage;
 }
 
-export function log(
+function log(
   message: string,
   type: Type = Type.INFO,
   args: Record<string, any> = {}
@@ -102,18 +106,9 @@ export function log(
 
   console.log(logMessage);
 
-  if (DISCORD_LOGGING && type !== Type.DEBUG) {
+  if (DISCORD_LOGGING) {
     logDiscord(message, args, discordColor);
   }
-}
-
-export function logTemplate(
-  message: string,
-  type: Type,
-  args: Record<string, any> = {},
-  ...formatValues: string[]
-) {
-  log(message.format(...formatValues), type, args);
 }
 
 export const logInfo = (message: string, args: Record<string, any> = {}) =>
@@ -127,30 +122,3 @@ export const logError = (
   args: Record<string, any> = {}
 ) =>
   log(message instanceof Error ? message.message : message, Type.ERROR, args);
-
-export const logInfoTemplate = (
-  message: string,
-  args: Record<string, any> = {},
-  ...formatValues: string[]
-) => logTemplate(message, Type.INFO, args, ...formatValues);
-export const logWarnTemplate = (
-  message: string,
-  args: Record<string, any> = {},
-  ...formatValues: string[]
-) => logTemplate(message, Type.WARN, args, ...formatValues);
-export const logDebugTemplate = (
-  message: string,
-  args: Record<string, any> = {},
-  ...formatValues: string[]
-) => logTemplate(message, Type.DEBUG, args, ...formatValues);
-export const logErrorTemplate = (
-  message: string | Error,
-  args: Record<string, any> = {},
-  ...formatValues: string[]
-) =>
-  logTemplate(
-    message instanceof Error ? message.message : message,
-    Type.ERROR,
-    args,
-    ...formatValues
-  );

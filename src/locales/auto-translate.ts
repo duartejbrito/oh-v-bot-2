@@ -1,8 +1,7 @@
 import translate from "@iamtraction/google-translate";
 import * as fs from "fs";
 import * as path from "path";
-import { convertToIso6391 } from "../utils";
-import { logDebug } from "../utils/logger";
+import { logDebug, convertToIso6391 } from "../utils/safe";
 import { supportedLngs, translations } from ".";
 
 function writeJsonToFile(filePath: string, data: { [key: string]: string }) {

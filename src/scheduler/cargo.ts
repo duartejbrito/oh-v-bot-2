@@ -1,6 +1,7 @@
-import { Client, time, TimestampStyles } from "discord.js";
+import { time, TimestampStyles } from "discord.js";
 import { Op } from "sequelize";
 import { Schedule } from "./schedule";
+import { client } from "..";
 import { CargoChannel } from "../db/models/CargoChannel";
 import { changeLanguage, t, TranslationKey } from "../locales";
 import { toMilliseconds, utils } from "../utils";
@@ -10,7 +11,7 @@ import { logError, logInfo } from "../utils/logger";
 export class Cargo extends Schedule {
   static rule = ["55 11,14,21 * * *", "25 18 * * *"];
   static deltaMinutes = 5;
-  static override callback = async (client: Client, fireDate: Date) => {
+  static override callback = async (fireDate: Date) => {
     fireDate.setSeconds(0, 0);
 
     const channels = await CargoChannel.findAll({
@@ -46,7 +47,10 @@ export class Cargo extends Schedule {
       );
 
       if (result instanceof PermissionError) {
-        logError(PermissionErrorType[result.type]);
+        logError(PermissionErrorType[result.type], {
+          JobName: Cargo.name,
+          ChannelId: channel.channelId,
+        });
         await CargoChannel.destroy({ where: { channelId: channel.channelId } });
         logInfo("Channel removed from database.", {
           JobName: Cargo.name,

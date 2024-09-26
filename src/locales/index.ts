@@ -2,7 +2,7 @@ import { Locale } from "discord.js";
 import i18next from "i18next";
 import Backend from "i18next-fs-backend";
 import { config } from "../config";
-import { convertToIso6391 } from "../utils";
+import { convertToIso6391 } from "../utils/safe";
 
 export const translations = {
   check_channel_type_error:

@@ -1,7 +1,6 @@
 import { Client, Events, GatewayIntentBits } from "discord.js";
 import { allCommands } from "./commands";
 import { config } from "./config";
-import db from "./db";
 import { initModels } from "./db/models";
 import { deployCommands, deployGuildCommands } from "./deploy-commands";
 import { scheduleJobs } from "./scheduler";
@@ -18,9 +17,9 @@ client.once(Events.ClientReady, async () => {
     DisplayName: client.user!.displayName,
     Tag: client.user!.tag,
   });
-  await initModels(db);
-  await handleDanglingMessages(client);
-  scheduleJobs(client);
+  await initModels();
+  await handleDanglingMessages();
+  scheduleJobs();
 });
 
 client.on(Events.GuildCreate, async (guild) => {

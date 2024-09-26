@@ -1,6 +1,5 @@
 import {
   Channel,
-  Client,
   ColorResolvable,
   Colors,
   CommandInteraction,
@@ -12,6 +11,7 @@ import {
   SendableChannels,
 } from "discord.js";
 import { logError, logInfo } from "./logger";
+import { client } from "..";
 import { AutoDeleteMessage } from "../db/models/AutoDeleteMessage";
 
 export enum PermissionErrorType {
@@ -136,7 +136,7 @@ export function mentionCommand(interaction: CommandInteraction) {
   return `</${interaction.commandName}:${interaction.commandId}>`;
 }
 
-export async function handleDanglingMessages(client: Client) {
+export async function handleDanglingMessages() {
   const autoDeleteMessages = await AutoDeleteMessage.findAll();
 
   const currentTime = new Date();
@@ -152,7 +152,11 @@ export async function handleDanglingMessages(client: Client) {
           ?.channels.cache.get(msg.channelId) as SendableChannels
       )?.messages.delete(msg.messageId);
     } catch (error) {
-      logError(error as Error);
+      logError(error as Error, {
+        GuildId: msg.guildId,
+        ChannelId: msg.channelId,
+        MessageId: msg.messageId,
+      });
     }
   });
   await Promise.all(deletes);

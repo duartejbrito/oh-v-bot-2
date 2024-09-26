@@ -1,5 +1,5 @@
 import { parseExpression } from "cron-parser";
-import { Client, time, TimestampStyles } from "discord.js";
+import { time, TimestampStyles } from "discord.js";
 import * as schedule from "node-schedule";
 import { Cargo } from "./cargo";
 import { Crate } from "./crate";
@@ -87,7 +87,11 @@ function scheduleJob(
       });
     }
   } catch (error) {
-    logError(`Error while scheduling job ${jobName}: ${error}`);
+    logError("Error while scheduling job", {
+      JobName: jobName,
+      Rule: `\`${rule}\``,
+      Error: JSON.stringify(error),
+    });
   }
 }
 
@@ -99,16 +103,11 @@ const schedules = {
 
 const tz = "Etc/UTC";
 
-export function scheduleJobs(this: void, client: Client) {
+export function scheduleJobs() {
   Object.entries(schedules).forEach(([jobName, schedule]) => {
     schedule.rule.forEach((rule: string) => {
       const loweredJobName = jobName.toLowerCase();
-      scheduleJob(
-        loweredJobName,
-        rule,
-        schedule.callback.bind(this, client),
-        tz
-      );
+      scheduleJob(loweredJobName, rule, schedule.callback, tz);
       extractRuleOptions(loweredJobName, rule, schedule.deltaMinutes);
     });
   });
