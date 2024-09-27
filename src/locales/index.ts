@@ -27,12 +27,12 @@ export const translations = {
   cargo_message: "The cargo scramble event had a chance to spawn {0}!",
   cargo_footer: "Let's go PvP!!! Thanks blixmix for the alert! 🤣",
   medic_channel_alert_error:
-    "[MEDIC] The bot is not able to send messages/view the channel in the channel you have chosen for cargo scramble spawn alerts, {0}.\nPlease edit the channel settings by right clicking the channel name and make sure the bot or it's role has View Channel, Send Messages, and Embed Links set to the ✅ (green check) and try again.\n-# If you need assistance, please join the support server.",
+    "[MEDICS/TRUNKS] The bot is not able to send messages/view the channel in the channel you have chosen for cargo scramble spawn alerts, {0}.\nPlease edit the channel settings by right clicking the channel name and make sure the bot or it's role has View Channel, Send Messages, and Embed Links set to the ✅ (green check) and try again.\n-# If you need assistance, please join the support server.",
   setup_medic_channel_ping:
     "{0}, this channel is where medic/trunk alerts will be sent!",
   setup_medic_success:
     "Your medic/trunks alerts output channel has been set to {0}!\nThe role that will be mentioned is {1}.\n**{2}** automatic delete of previous Medic/Trunk spawn alerts.\n-# If you do not get an alert when you expect it, please join the support server and let me know.",
-  medic_title: "Once Human Medic/Trunk Reset",
+  medic_title: "Once Human Medics/Trunks Reset",
   medic_message: "This is the {0} reset announcement.",
   medic_footer:
     "Log out to the main menu and log back in to see the reset medics/trunks.",
@@ -44,6 +44,9 @@ export const translations = {
     "Channel: {0}\nRole: {1}\nAuto Delete: **{2}**\nMutes: **{3}**",
   info_cargo_title: "Cargo Setup",
   info_cargo_value:
+    "Channel: {0}\nRole: {1}\nAuto Delete: **{2}**\nMutes: **{3}**",
+  info_medic_title: "Medic Setup",
+  info_medic_value:
     "Channel: {0}\nRole: {1}\nAuto Delete: **{2}**\nMutes: **{3}**",
   info_footer: "If you want to remove all your settings, type {0}",
 };
@@ -91,6 +94,8 @@ export enum TranslationKey {
   info_crate_value = "info_crate_value",
   info_cargo_title = "info_cargo_title",
   info_cargo_value = "info_cargo_value",
+  info_medic_title = "info_medic_title",
+  info_medic_value = "info_medic_value",
   info_footer = "info_footer",
   /* eslint-enable no-unused-vars */
 }

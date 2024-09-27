@@ -8,7 +8,12 @@ import {
   InteractionContextType,
   PermissionFlagsBits,
 } from "discord.js";
-import { AutoDeleteMessage, CargoChannel, CrateChannel } from "../db/models";
+import {
+  AutoDeleteMessage,
+  CargoChannel,
+  CrateChannel,
+  MedicChannel,
+} from "../db/models";
 import { logInfo } from "../utils/logger";
 
 export const name = "remove";
@@ -53,17 +58,21 @@ export async function execute(interaction: CommandInteraction) {
       const deletedCrates = await CrateChannel.destroy({
         where: { guildId: i.guildId! },
       });
+      const deletedMedics = await MedicChannel.destroy({
+        where: { guildId: i.guildId! },
+      });
       const deletedAutoDelete = await AutoDeleteMessage.destroy({
         where: { guildId: i.guildId! },
       });
       await i.update({
-        content: `Data removed!\nCrate Setup: ${deletedCrates}\nCargo Setup: ${deletedCargos}\nAuto delete messages: ${deletedAutoDelete}`,
+        content: `Data removed!\nCrate Setup: ${deletedCrates}\nCargo Setup: ${deletedCargos}\nMedic Setup: ${deletedMedics}\nAuto delete messages: ${deletedAutoDelete}`,
         components: [],
       });
       logInfo("Data removed.", {
         GuildId: i.guildId!,
         CrateSetups: deletedCrates,
         CargoSetups: deletedCargos,
+        MedicSetups: deletedMedics,
         AutoDeletes: deletedAutoDelete,
       });
     } else if (i.customId === "cancel") {

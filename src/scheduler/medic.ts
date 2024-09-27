@@ -43,7 +43,7 @@ export class Medic extends Schedule {
         t(TranslationKey.medic_footer),
         discordChannel,
         channel.roleId,
-        channel.autoDelete ? toMilliseconds(4) : 0
+        channel.autoDelete ? toMilliseconds(8) : 0
       );
 
       if (result instanceof PermissionError) {

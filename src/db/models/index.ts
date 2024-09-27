@@ -4,7 +4,7 @@ import { CrateChannel } from "./CrateChannel";
 import { MedicChannel } from "./MedicChannel";
 import db from "..";
 
-export { CrateChannel, CargoChannel, AutoDeleteMessage };
+export { CrateChannel, CargoChannel, MedicChannel, AutoDeleteMessage };
 
 export async function initModels() {
   CrateChannel.initModel(db);
