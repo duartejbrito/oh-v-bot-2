@@ -26,6 +26,16 @@ export const translations = {
   cargo_title: "Once Human Cargo Scramble Spawn",
   cargo_message: "The cargo scramble event had a chance to spawn {0}!",
   cargo_footer: "Let's go PvP!!! Thanks blixmix for the alert! 🤣",
+  medic_channel_alert_error:
+    "[MEDIC] The bot is not able to send messages/view the channel in the channel you have chosen for cargo scramble spawn alerts, {0}.\nPlease edit the channel settings by right clicking the channel name and make sure the bot or it's role has View Channel, Send Messages, and Embed Links set to the ✅ (green check) and try again.\n-# If you need assistance, please join the support server.",
+  setup_medic_channel_ping:
+    "{0}, this channel is where medic/trunk alerts will be sent!",
+  setup_medic_success:
+    "Your medic/trunks alerts output channel has been set to {0}!\nThe role that will be mentioned is {1}.\n**{2}** automatic delete of previous Medic/Trunk spawn alerts.\n-# If you do not get an alert when you expect it, please join the support server and let me know.",
+  medic_title: "Once Human Medic/Trunk Reset",
+  medic_message: "This is the {0} reset announcement.",
+  medic_footer:
+    "Log out to the main menu and log back in to see the reset medics/trunks.",
   next_respawns_message:
     "It is {0}:{1} UTC.\nCrates respawn at 00:00 UTC and every 4 hours after.\nCargo Scramble spawns at 12:00, 15:00, 18:30, and 22:00 UTC.\n\nNext crate respawn:\t\t{2} or ~{3}.\nNext Cargo Scramble:\t{4} or ~{5}.",
   info_title: "Info",
@@ -69,6 +79,12 @@ export enum TranslationKey {
   cargo_title = "cargo_title",
   cargo_message = "cargo_message",
   cargo_footer = "cargo_footer",
+  medic_channel_alert_error = "medic_channel_alert_error",
+  setup_medic_channel_ping = "setup_medic_channel_ping",
+  setup_medic_success = "setup_medic_success",
+  medic_title = "medic_title",
+  medic_message = "medic_message",
+  medic_footer = "medic_footer",
   next_respawns_message = "next_respawns_message",
   info_title = "info_title",
   info_crate_title = "info_crate_title",

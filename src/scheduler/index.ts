@@ -3,6 +3,7 @@ import { time, TimestampStyles } from "discord.js";
 import * as schedule from "node-schedule";
 import { Cargo } from "./cargo";
 import { Crate } from "./crate";
+import { Medic } from "./medic";
 import { Test } from "./test";
 import { logError, logInfo } from "../utils/logger";
 
@@ -98,6 +99,7 @@ function scheduleJob(
 const schedules = {
   Crate,
   Cargo,
+  Medic,
   // Test,
 };
 

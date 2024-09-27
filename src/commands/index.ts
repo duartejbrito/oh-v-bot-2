@@ -2,6 +2,7 @@ import * as cargo from "./cargo";
 import * as crate from "./crate";
 import * as deploy from "./deploy";
 import * as info from "./info";
+import * as medic from "./medic";
 import * as next from "./next";
 import * as ping from "./ping";
 import * as remove from "./remove";
@@ -13,6 +14,7 @@ export const allCommands = {
   remove,
   crate,
   cargo,
+  medic,
   deploy,
 };
 
@@ -23,6 +25,7 @@ export const commands = {
   remove,
   crate,
   cargo,
+  medic,
 };
 
 export const ownerCommands = {
