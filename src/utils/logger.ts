@@ -49,7 +49,7 @@ async function logDiscord(
     const fields = Object.keys(args).map((key) => {
       return {
         name: key,
-        value: JSON.stringify(args[key]),
+        value: args[key] ? JSON.stringify(args[key]) : " ",
         inline: true,
       };
     });
