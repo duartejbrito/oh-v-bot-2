@@ -1,4 +1,5 @@
 import * as cargo from "./cargo";
+import * as color from "./color";
 import * as crate from "./crate";
 import * as deploy from "./deploy";
 import * as info from "./info";
@@ -11,6 +12,7 @@ export const allCommands = {
   ping,
   info,
   next,
+  color,
   remove,
   crate,
   cargo,
@@ -22,6 +24,7 @@ export const commands = {
   ping,
   info,
   next,
+  color,
   remove,
   crate,
   cargo,

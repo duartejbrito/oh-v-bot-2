@@ -47,7 +47,7 @@ The available commands for managing notification channels in the V - Once Human 
 
 ### Crate Command ([src/commands/crate.ts](src/commands/crate.ts))
 
-**Setup**: `/crate setup`
+**SeUsagetup**: `/crate setup`
 
 **Options**:
 
@@ -58,11 +58,22 @@ The available commands for managing notification channels in the V - Once Human 
 
 ### Cargo Command ([src/commands/cargo.ts](src/commands/cargo.ts))
 
-**Setup**: `/cargo setup`
+**Usage**: `/cargo setup`
 
 **Options**:
 
 - `channel`: The text/announcement channel for notifications (required).
+- `role`: The role to mention in the alert (optional).
+- `auto-delete`: Toggle auto-delete for alerts before the next post (optional).
+- `mute`: Toggle mute for notifications (optional).
+
+### Medic Command ([src/commands/medic.ts](src/commands/medic.ts))
+
+**Usage**: `/medic setup`
+
+**Options**:
+
+- `channel`: The text/announcement channel for medics / trunks notifications (required).
 - `role`: The role to mention in the alert (optional).
 - `auto-delete`: Toggle auto-delete for alerts before the next post (optional).
 - `mute`: Toggle mute for notifications (optional).
@@ -78,6 +89,22 @@ Provides information about the current settings for crate and cargo notification
 **Usage**: `/next`
 
 Displays the next scheduled crate or cargo event.
+
+### Color Command ([src/commands/color.ts](src/commands/color.ts))
+
+**Usage**: `/color text:<text>`
+
+Receives a text input and returns the same text wrapped in a selected color.
+
+This command will prompt you to select a color from a set of buttons. Once a color is selected, the bot will return the text wrapped in the selected color.
+
+**Color Options**:
+
+- Red 🟥
+- Blue 🟦
+- Green 🟩
+- Yellow 🟨
+- Purple 🟪
 
 ### Remove Command ([src/commands/remove.ts](src/commands/remove.ts))
 
